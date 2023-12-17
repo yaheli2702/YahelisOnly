@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0F8F4"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="267dp"
+        android:layout_height="127dp"
+        android:layout_marginTop="48dp"
+        android:background="#54FDB8"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="find my travelers"
+        android:textColor="#1465C6"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="261dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="75dp"
+        android:ems="10"
+        android:hint="סיסמא"
+        android:gravity="center"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="261dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:hint="שם משתמש"
+        android:gravity="center"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/inside"
+        android:layout_width="137dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="48dp"
+        android:text="התחבר"
+        android:backgroundTint="#54FDB8"
+        android:textColor="#1465C6"
+        app:cornerRadius="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="137dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="14dp"
+        android:text="חדש? הרשם"
+        android:onClick="signIn"
+        android:backgroundTint="#54FDB8"
+        android:textColor="#1465C6"
+        app:cornerRadius="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inside" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

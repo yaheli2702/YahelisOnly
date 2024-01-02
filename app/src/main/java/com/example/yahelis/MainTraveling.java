@@ -48,12 +48,12 @@ public class MainTraveling extends FragmentActivity {
         viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        FragmentPagerAdapter adapter= new FragmentPagerAdapter(this);
+        MyPagerAdapter adapter= new MyPagerAdapter(this);
 
 
         String[] arr = {"Home","FindTrip","AddTrip","Profil"};
 
-        int[] arrDraw = {R.drawable.googleg_standard_color_18,R.drawable.common_full_open_on_phone,R.drawable.send,R.drawable.user};
+        int[] arrDraw = {R.drawable.home,R.drawable.search,R.drawable.add,R.drawable.user};
         viewPager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> tab.setIcon(arrDraw[position])//tab.setText( arr[position])//(position + 1))
         ).attach();

@@ -7,13 +7,13 @@
     tools:context=".AddTrip">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="132dp"
-        android:layout_height="172dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="80dp"
-        android:src="@android:drawable/ic_dialog_map"
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="140dp"
+        android:text="addtrip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

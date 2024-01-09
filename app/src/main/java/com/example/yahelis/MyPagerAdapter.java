@@ -19,13 +19,13 @@ public class MyPagerAdapter extends FragmentStateAdapter {
         switch (position) {
 
             case 0:
-                return new Profil();
+                return new Home();
             case 1:
                 return new FindTrip();
             case 2:
                 return new AddTrip();
             case 3:
-                return new Home();
+                return new Profil();
         }
         return new Home();
 

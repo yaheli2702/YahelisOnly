@@ -28,6 +28,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -41,7 +42,9 @@ public class MainTraveling extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_traveling);
-        initViews();
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);        initViews();
 
     }
     private void initViews() {
@@ -55,7 +58,7 @@ public class MainTraveling extends FragmentActivity {
 
         int[] arrDraw = {R.drawable.home,R.drawable.search,R.drawable.add,R.drawable.user};
         viewPager.setAdapter(adapter);
-        new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> tab.setIcon(arrDraw[position])//tab.setText( arr[position])//(position + 1))
+        new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> tab.setIcon(arrDraw[position])
         ).attach();
     }
 

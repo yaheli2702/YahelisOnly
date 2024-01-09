@@ -4,16 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C0F8F4"
     tools:context=".Profil">
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/friendslist"
         android:layout_width="72dp"
         android:layout_height="50dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="159dp"
-        android:text="profile"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="232dp"
+        android:text="friendslist"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="72dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="232dp"
+        android:text="name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="196dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/bio"
+        android:layout_width="352dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="35dp"
+        android:editable="false"
+        android:hint="bio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendslist" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="13dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="72dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="72dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="72dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView6" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="13dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="13dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/imageView1" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="20dp"
+        android:text="add friend"
+        app:layout_constraintStart_toEndOf="@+id/friendslist"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

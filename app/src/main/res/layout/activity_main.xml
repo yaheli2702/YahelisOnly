@@ -31,34 +31,34 @@
         android:gravity="center"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="261dp"
         android:layout_height="91dp"
         android:layout_marginStart="75dp"
         android:layout_marginTop="54dp"
         android:ems="10"
-        android:hint="שם משתמש"
         android:gravity="center"
+        android:hint="אימייל"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/inside"
+        android:id="@+id/signup"
         android:layout_width="137dp"
         android:layout_height="60dp"
-        android:layout_marginStart="137dp"
-        android:layout_marginTop="48dp"
-        android:text="התחבר"
-        android:onClick="signIn"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="128dp"
         android:backgroundTint="#54FDB8"
+        android:onClick="signIn"
+        android:text="התחבר"
         android:textColor="#1465C6"
         app:cornerRadius="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/signin"
@@ -72,6 +72,6 @@
         android:textColor="#1465C6"
         app:cornerRadius="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inside" />
+        app:layout_constraintTop_toBottomOf="@+id/signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

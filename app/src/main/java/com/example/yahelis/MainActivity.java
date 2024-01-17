@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
@@ -23,14 +24,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        /*
+        new Handler().postDelayed({
+                Intent intent= Intent(this@MainActivity, MainActivity::class.java);
+                startActivity(intent);
+                finish();
+        },3000);
 
+         */
 
         // already signed in
+        /*
         if(mAuth.getCurrentUser() != null)
         {
             Intent i = new Intent(this, MainTraveling.class);
             startActivity(i);
         }
+
+         */
 
 
        // mAuth.getCurrentUser() == null  -> never signed UP

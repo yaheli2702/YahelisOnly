@@ -22,7 +22,11 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableLeft="@drawable/username_pic"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:background="@drawable/edittext_mailpass"/>
 
     <EditText
         android:id="@+id/regpassword"
@@ -35,7 +39,11 @@
         android:hint="סיסמא"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:drawableLeft="@drawable/lock_pic"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:background="@drawable/edittext_mailpass"/>
 
     <EditText
         android:id="@+id/EmailAddress"
@@ -48,7 +56,12 @@
         android:hint="אימייל"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/regpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/regpassword"
+        android:drawableLeft="@drawable/email_pic"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:background="@drawable/edittext_mailpass"/>
+
 
     <EditText
         android:id="@+id/Phone"
@@ -61,7 +74,11 @@
         android:hint="מספר טלפון"
         android:inputType="phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/EmailAddress"
+        android:drawableLeft="@drawable/phone_pic"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:background="@drawable/edittext_mailpass"/>
 
     <EditText
         android:id="@+id/age"
@@ -76,7 +93,11 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Phone" />
+        app:layout_constraintTop_toBottomOf="@+id/Phone"
+        android:drawableLeft="@drawable/number_pic"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:background="@drawable/edittext_mailpass"/>
 
     <EditText
         android:id="@+id/iden"
@@ -89,7 +110,11 @@
         android:hint="תעודת זהות"
         android:inputType="numberPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age" />
+        app:layout_constraintTop_toBottomOf="@+id/age"
+        android:drawableLeft="@drawable/username_pic"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:background="@drawable/edittext_mailpass"/>
 
     <CheckBox
         android:id="@+id/checkBox"

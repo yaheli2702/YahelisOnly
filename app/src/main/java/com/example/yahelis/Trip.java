@@ -6,15 +6,16 @@ public class Trip {
     private int day;
     private int month;
     private int year;
-
+    private String photo;
     private int km;
     private int time;
-    public Trip(String information, String dargatiul, int day, int month, int year, int km, int time) {
+    public Trip(String information, String dargatiul, int day, int month, int year, String photo, int km, int time) {
         this.information = information;
         this.dargatiul = dargatiul;
         this.day = day;
         this.month = month;
         this.year = year;
+        this.photo = photo;
         this.km = km;
         this.time = time;
     }
@@ -30,8 +31,15 @@ public class Trip {
         this.information = information;
     }
 
-    public String getDargatiul() {
+    public String getPhoto() {
         return dargatiul;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    public String getDargatiul() {
+        return photo;
     }
 
     public void setDargatiul(String dargatiul) {

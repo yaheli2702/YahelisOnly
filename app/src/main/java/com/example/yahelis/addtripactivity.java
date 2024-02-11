@@ -3,7 +3,6 @@ package com.example.yahelis;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,9 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.YearMonth;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -74,6 +71,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         String information= etInfor.getText().toString();
         int km=Integer.valueOf(etKilometer.getText().toString());
         int time=Integer.valueOf(etTimee.getText().toString());
+        String photo="photophoto";
         Calendar calendar = Calendar.getInstance();
         DateFormat date= new SimpleDateFormat("EEEE", Locale.getDefault());
 
@@ -89,7 +87,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
         //String information, String dargatiul, int day, int month, int year, int km, int time
-        Trip trup = new Trip(information,selectedDifficulty,day,month,year,km,time);
+        Trip trup = new Trip(information,selectedDifficulty,day,month,year, photo, km,time);
         addTriptoFirestore(trup);
     }
 

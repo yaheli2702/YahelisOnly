@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -69,12 +73,10 @@ public class Home extends Fragment {
         for (int i=0; i<25;i++){
             trips.add(new Trip("information","קל",27,2,2025,"photo"+i,54,87));
         }
-        RecyclerView recyclerView = fragView.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
 
-        HomeAdapter homeAdapter= new HomeAdapter(trips);
-        recyclerView.setAdapter(homeAdapter);
+
+       // HomeAdapter homeAdapter= new HomeAdapter(trips);
+      //  recyclerView.setAdapter(homeAdapter);
     }
 
     @Override
@@ -92,7 +94,51 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        // ONLY HERE THE FRAGMENT IS ALREADY CREATED!
+        setupRecyclerView();
 
 
+
+
+    }
+    //firebase
+    private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
+    private CollectionReference postsRef =firebaseFirestore.collection("trips");
+
+    private HomeAdapter adapter;
+
+
+    private void setupRecyclerView() {
+
+        // set the recycler view display
+
+        RecyclerView recyclerView = fragView.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(LayoutManager);
+
+
+        // get the data from firebase
+        // display in the recycler view
+        FirestoreRecyclerOptions<Trip> options = new FirestoreRecyclerOptions.Builder<Trip>().build();
+
+
+        adapter = new HomeAdapter(options);
+
+        recyclerView.setAdapter(adapter);
+
+
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public  void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

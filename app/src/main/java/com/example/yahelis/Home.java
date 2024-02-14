@@ -15,8 +15,7 @@ import android.view.ViewGroup;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.checkerframework.checker.units.qual.A;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -71,7 +70,7 @@ public class Home extends Fragment {
         }
 
         for (int i=0; i<25;i++){
-            trips.add(new Trip("information","קל",27,2,2025,"photo"+i,54,87));
+            trips.add(new Trip("information","קל",27,2,2025,"photo"+i,54,87, "trip number"+i+""));
         }
 
 
@@ -103,7 +102,7 @@ public class Home extends Fragment {
     }
     //firebase
     private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
-    private CollectionReference postsRef =firebaseFirestore.collection("trips");
+    private CollectionReference tripsRef =firebaseFirestore.collection("Trips");
 
     private HomeAdapter adapter;
 
@@ -116,11 +115,12 @@ public class Home extends Fragment {
         RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(LayoutManager);
 
+        Query query = tripsRef;
 
         // get the data from firebase
         // display in the recycler view
-        FirestoreRecyclerOptions<Trip> options = new FirestoreRecyclerOptions.Builder<Trip>().build();
-
+        FirestoreRecyclerOptions<Trip> options = new FirestoreRecyclerOptions.Builder<Trip>().
+            setQuery(query, Trip.class).build();
 
         adapter = new HomeAdapter(options);
 

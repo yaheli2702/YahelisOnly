@@ -9,7 +9,8 @@ public class Trip {
     private String photo;
     private int km;
     private int time;
-    public Trip(String information, String dargatiul, int day, int month, int year, String photo, int km, int time) {
+    private String name;
+    public Trip(String information, String dargatiul, int day, int month, int year, String photo, int km, int time, String name) {
         this.information = information;
         this.dargatiul = dargatiul;
         this.day = day;
@@ -18,6 +19,15 @@ public class Trip {
         this.photo = photo;
         this.km = km;
         this.time = time;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Trip() {
@@ -32,7 +42,7 @@ public class Trip {
     }
 
     public String getPhoto() {
-        return dargatiul;
+        return photo;
     }
 
     public void setPhoto(String photo) {

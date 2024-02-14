@@ -59,6 +59,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         DatePicker dtDate = findViewById(R.id.datePicker1);
         EditText etKilometer = findViewById(R.id.kilometer);
         EditText etTimee = findViewById(R.id.timee);
+        EditText etName = findViewById(R.id.etName);
 
 
         if (TextUtils.isEmpty(etInfor.getText()) || TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
@@ -69,6 +70,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         int month = dtDate.getMonth() + 1;
         int year = dtDate.getYear();
         String information= etInfor.getText().toString();
+        String name= etName.getText().toString();
         int km=Integer.valueOf(etKilometer.getText().toString());
         int time=Integer.valueOf(etTimee.getText().toString());
         String photo="photophoto";
@@ -87,7 +89,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
         //String information, String dargatiul, int day, int month, int year, int km, int time
-        Trip trup = new Trip(information,selectedDifficulty,day,month,year, photo, km,time);
+        Trip trup = new Trip(information,selectedDifficulty,day,month,year, photo, km,time, name);
         addTriptoFirestore(trup);
     }
 
@@ -97,7 +99,8 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("FB SUCCESS", "onSuccess: perfect");
-                 //       Intent i = new Intent(LoggingIn.this, MainTraveling.class);
+                        Toast.makeText(addtripactivity.this,"trip added",Toast.LENGTH_LONG).show();
+                        //       Intent i = new Intent(LoggingIn.this, MainTraveling.class);
                    //     startActivity(i);
                         finish();
                     }

@@ -21,11 +21,26 @@
 
 
             <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="שם המסלול" />
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="390dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="כמה מילים על הטיול"
                 android:textDirection="rtl"></TextView>
-
 
             <EditText
                 android:id="@+id/editTextTextMultiLine"

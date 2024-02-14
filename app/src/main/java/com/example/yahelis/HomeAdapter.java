@@ -56,12 +56,17 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView tvDarga;
+        public final TextView tvNameing;
+        public final TextView tvTimeing;
+
         public final ImageView ivTripPic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDarga=   itemView.findViewById(R.id.tvRecDarga);
+            tvNameing=   itemView.findViewById(R.id.tvNameing);
+            tvTimeing=   itemView.findViewById(R.id.tvTimeing);
             ivTripPic=  itemView.findViewById(R.id.tripicture);
 
 

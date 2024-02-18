@@ -126,6 +126,13 @@
                 android:ems="10"
                 android:inputType="number" />
 
+            <ImageView
+                android:id="@+id/IVaddpicture"
+                android:layout_width="match_parent"
+                android:layout_height="271dp"
+                android:onClick="addpicture"
+                app:srcCompat="@drawable/backgroundpic" />
+
             <Button
                 android:id="@+id/button2"
                 android:layout_width="148dp"

@@ -34,7 +34,9 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Trip model) {
 
                 holder.tvDarga.setText(model.getDargatiul());
-
+                holder.tvNameing.setText(model.getName());
+                holder.tvTimeing.setText(""+model.getTime());
+                holder.ivTripPic.set(model.getPhoto());
 
 
     }

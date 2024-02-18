@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         // already signed in
-        /*
+
         if(mAuth.getCurrentUser() != null)
         {
             Intent i = new Intent(this, MainTraveling.class);
             startActivity(i);
         }
 
-         */
+
 
 
        // mAuth.getCurrentUser() == null  -> never signed UP
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(MainActivity.this,"please sign up first",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
 
 
             }

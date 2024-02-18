@@ -49,7 +49,7 @@ public class Trip {
         this.photo = photo;
     }
     public String getDargatiul() {
-        return photo;
+        return dargatiul;
     }
 
     public void setDargatiul(String dargatiul) {

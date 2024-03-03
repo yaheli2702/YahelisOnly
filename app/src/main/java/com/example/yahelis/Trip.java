@@ -1,36 +1,27 @@
 package com.example.yahelis;
 
+import android.graphics.Bitmap;
+
 public class Trip {
     private String information;
     private String dargatiul;
-    private int day;
-    private int month;
-    private int year;
+    private String date;
     private String photo;
     private int km;
     private int time;
     private String name;
-    public Trip(String information, String dargatiul, int day, int month, int year, String photo, int km, int time, String name) {
+    public Trip(){
+
+    }
+
+    public Trip(String information, String dargatiul, String date, String photo, int km, int time, String name) {
         this.information = information;
         this.dargatiul = dargatiul;
-        this.day = day;
-        this.month = month;
-        this.year = year;
+        this.date = date;
         this.photo = photo;
         this.km = km;
         this.time = time;
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Trip() {
     }
 
     public String getInformation() {
@@ -41,13 +32,6 @@ public class Trip {
         this.information = information;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
     public String getDargatiul() {
         return dargatiul;
     }
@@ -56,28 +40,20 @@ public class Trip {
         this.dargatiul = dargatiul;
     }
 
-    public int getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public int getMonth() {
-        return month;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public int getKm() {
@@ -96,6 +72,11 @@ public class Trip {
         this.time = time;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

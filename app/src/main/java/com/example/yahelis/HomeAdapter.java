@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewHolder> {
     private ArrayList<Trip> trips;
 
+    MyFirebaseStorage storage = new MyFirebaseStorage();
+
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
@@ -36,9 +38,7 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
                 holder.tvDarga.setText(model.getDargatiul());
                 holder.tvNameing.setText(model.getName());
                 holder.tvTimeing.setText(""+model.getTime());
-                holder.ivTripPic.set(model.getPhoto());
-
-
+                storage.getImage(holder.ivTripPic,model.getPhoto());
     }
 
     @NonNull

@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,10 +16,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -26,6 +29,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -43,7 +48,9 @@ import java.util.UUID;
 public class addtripactivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] darga = { "קל", "בינוני", "קשה"};
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
-
+    TextView dateRangeText;
+    Button calender;
+    String s="";
 
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
@@ -65,6 +72,22 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtripactivity);
+        dateRangeText=findViewById(R.id.changeDate);
+        calender=findViewById(R.id.chooseDate);
+        MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds())).build();
+        calender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materialDatePicker.show(getSupportFragmentManager(), "Tag_picker");
+                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        dateRangeText.setText(materialDatePicker.getHeaderText());
+                        s=materialDatePicker.getHeaderText();
+                    }
+                });
+            }
+        });
         Spinner spin = (Spinner) findViewById(R.id.spinner);
         spin.setOnItemSelectedListener( this);
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,darga);
@@ -88,7 +111,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     public void readDataAndCreateTrip(View view)
     {
         EditText etInfor = findViewById(R.id.editTextTextMultiLine);
-        DatePicker dtDate = findViewById(R.id.datePicker1);
+        //DatePicker dtDate = findViewById(R.id.datePicker1);
         EditText etKilometer = findViewById(R.id.kilometer);
         EditText etTimee = findViewById(R.id.timee);
         EditText etName = findViewById(R.id.etName);
@@ -97,12 +120,14 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
 
 
         if (TextUtils.isEmpty(etInfor.getText()) || TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
+
+            etInfor.setHint("please fill the fild");
             Toast.makeText(this, "Please make sure all fields are full", Toast.LENGTH_LONG).show();
             return;
         }
-        int day = dtDate.getDayOfMonth();
-        int month = dtDate.getMonth() + 1;
-        int year = dtDate.getYear();
+//        int day = dtDate.getDayOfMonth();
+//        int month = dtDate.getMonth() + 1;
+//        int year = dtDate.getYear();
         String information= etInfor.getText().toString();
         String name= etName.getText().toString();
         int km=Integer.valueOf(etKilometer.getText().toString());
@@ -154,8 +179,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         if(!isAfterCurrentYearMonth)
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
-        //String information, String dargatiul, int day, int month, int year, int km, int time
-        Trip trup = new Trip(information,selectedDifficulty,day,month,year, photo, km,time, name);
+        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name);
         addTriptoFirestore(trup);
     }
 

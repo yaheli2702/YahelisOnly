@@ -61,16 +61,33 @@
                 android:gravity="right"
                 android:text="תאריך" />
 
-            <DatePicker
-                android:id="@+id/datePicker1"
-                android:layout_width="241dp"
-                android:layout_height="147dp"
-                android:layout_marginStart="81dp"
-                android:layout_marginTop="46dp"
-                android:layout_marginEnd="82dp"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner" />
+<!--            <DatePicker-->
+<!--                android:id="@+id/datePicker1"-->
+<!--                android:layout_width="241dp"-->
+<!--                android:layout_height="147dp"-->
+<!--                android:layout_marginStart="81dp"-->
+<!--                android:layout_marginTop="46dp"-->
+<!--                android:layout_marginEnd="82dp"-->
+<!--                android:calendarViewShown="false"-->
+<!--                android:datePickerMode="spinner" />-->
 
+            <TextView
+                android:id="@+id/changeDate"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="11dp"
+                android:gravity="right"
+                android:text="התאריך שנבחר:" />
+            <Button
+                android:id="@+id/chooseDate"
+                android:layout_width="148dp"
+                android:layout_height="36dp"
+                android:backgroundTint="#13EDCD"
+                android:layout_marginStart="124dp"
+                android:layout_marginTop="36dp"
+                android:onClick="readDataAndCreateTrip"
+                android:text="תבחרי תאריך" />
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
@@ -136,6 +153,7 @@
             <Button
                 android:id="@+id/button2"
                 android:layout_width="148dp"
+                android:backgroundTint="#13EDCD"
                 android:layout_height="36dp"
                 android:layout_marginStart="124dp"
                 android:layout_marginTop="36dp"

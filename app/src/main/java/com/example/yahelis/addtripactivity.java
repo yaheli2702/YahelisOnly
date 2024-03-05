@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -74,7 +75,17 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_addtripactivity);
         dateRangeText=findViewById(R.id.changeDate);
         calender=findViewById(R.id.chooseDate);
-        MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds())).build();
+
+        long twoYears = 1000*3600*24*365*2;
+
+        CalendarConstraints constraints = new CalendarConstraints.Builder()
+                .setStart(Calendar.getInstance().getTimeInMillis())
+         //       .setEnd(1000*3600*24*7*10+Calendar.getInstance().getTimeInMillis())
+                .build();
+        MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
+              .setCalendarConstraints(constraints)
+                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds()+1000*24*3600,MaterialDatePicker.todayInUtcMilliseconds())).build();
+//
         calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

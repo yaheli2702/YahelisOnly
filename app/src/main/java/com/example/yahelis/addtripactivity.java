@@ -1,11 +1,14 @@
 package com.example.yahelis;
 
+import static com.google.android.material.datepicker.DateValidatorPointForward.*;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -30,6 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,6 +47,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -76,16 +81,19 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         dateRangeText=findViewById(R.id.changeDate);
         calender=findViewById(R.id.chooseDate);
 
-        long twoYears = 1000*3600*24*365*2;
+        //long twoYears = 1000*3600*24*365*2;
+        Date currentTime = Calendar.getInstance().getTime();
 
         CalendarConstraints constraints = new CalendarConstraints.Builder()
                 .setStart(Calendar.getInstance().getTimeInMillis())
          //       .setEnd(1000*3600*24*7*10+Calendar.getInstance().getTimeInMillis())
                 .build();
+//        CalendarConstraints constraintsBuilder= new CalendarConstraints.Builder()
+//                .setValidator(DateValidatorPointForward.from((long)currentTime));
         MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
               .setCalendarConstraints(constraints)
                 .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds()+1000*24*3600,MaterialDatePicker.todayInUtcMilliseconds())).build();
-//
+
         calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,15 +138,6 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         ImageView imageView = findViewById(R.id.IVaddpicture);
 
 
-        if (TextUtils.isEmpty(etInfor.getText()) || TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
-
-            etInfor.setHint("please fill the fild");
-            Toast.makeText(this, "Please make sure all fields are full", Toast.LENGTH_LONG).show();
-            return;
-        }
-//        int day = dtDate.getDayOfMonth();
-//        int month = dtDate.getMonth() + 1;
-//        int year = dtDate.getYear();
         String information= etInfor.getText().toString();
         String name= etName.getText().toString();
         int km=Integer.valueOf(etKilometer.getText().toString());
@@ -152,8 +151,16 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
-
         UploadTask uploadTask = imageRef.putBytes(data);
+        if (TextUtils.isEmpty(etInfor.getText()) ||s==""||photo==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
+
+            etInfor.setHint("please fill the fild");
+            etKilometer.setHint("please fill the fild");
+            etTimee.setHint("please fill the fild");
+            etName.setHint("please fill the fild");
+            Toast.makeText(addtripactivity.this, "Please make sure all fields are full", Toast.LENGTH_LONG).show();
+            return;
+        }
         Calendar calendar = Calendar.getInstance();
         DateFormat date= new SimpleDateFormat("EEEE", Locale.getDefault());
         uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {

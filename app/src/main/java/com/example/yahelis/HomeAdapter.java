@@ -1,5 +1,7 @@
 package com.example.yahelis;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
                 holder.tvDarga.setText(model.getDargatiul());
                 holder.tvNameing.setText(model.getName());
                 holder.tvTimeing.setText(""+model.getTime());
+                holder.tripID = model.getTripID();
                 storage.getImage(holder.ivTripPic,model.getPhoto());
     }
 
@@ -63,6 +66,8 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
 
         public final ImageView ivTripPic;
 
+        public String tripID;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -75,7 +80,14 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    Log.d("Recycler click", "onClick: " + tvDarga.getText().toString());
                     Toast.makeText(itemView.getContext(), "hi",Toast.LENGTH_LONG).show();
+
+                    Intent intent=new Intent(itemView.getContext(), tripdetails.class);
+
+                    intent.putExtra("tripID",tripID);
+                    itemView.getContext().startActivity(intent);
                 }
             });
 

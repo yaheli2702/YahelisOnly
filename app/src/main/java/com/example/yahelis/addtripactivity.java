@@ -36,8 +36,10 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -198,7 +200,25 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
         Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name);
-        addTriptoFirestore(trup);
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        trup.setOwnerEmail(email);
+
+        // get the owner username from firebase....
+
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+        fb.collection("Users").whereEqualTo("email",email).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                User u= queryDocumentSnapshots.getDocuments().get(0).toObject(User.class);
+                String userName = u.getUsername();
+                trup.setOwnerName(userName);
+                addTriptoFirestore(trup);
+
+            }
+        });
+
+
+
     }
 
     private void addTriptoFirestore (Trip trip){
@@ -206,6 +226,8 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         fb.collection("Trips").add(trip).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+
+                        documentReference.update("tripID",documentReference.getId());
                         Log.d("FB SUCCESS", "onSuccess: perfect");
                         Toast.makeText(addtripactivity.this,"trip added",Toast.LENGTH_LONG).show();
                         //       Intent i = new Intent(LoggingIn.this, MainTraveling.class);

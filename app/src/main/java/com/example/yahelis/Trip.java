@@ -2,7 +2,53 @@ package com.example.yahelis;
 
 import android.graphics.Bitmap;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+
 public class Trip {
+
+
+    private String ownerName;
+    private String ownerEmail;
+
+    private ArrayList<String> participantsNames=new ArrayList<>();
+
+    private ArrayList<String> participantsEmails = new ArrayList<>();
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public ArrayList<String> getParticipantsNames() {
+        return participantsNames;
+    }
+
+    public void setParticipantsNames(ArrayList<String> participantsNames) {
+        this.participantsNames = participantsNames;
+    }
+
+    public ArrayList<String> getParticipantsEmails() {
+        return participantsEmails;
+    }
+
+    public void setParticipantsEmails(ArrayList<String> participantsEmails) {
+        this.participantsEmails = participantsEmails;
+    }
+
+    private String tripID;
     private String information;
     private String dargatiul;
     private String date;
@@ -10,8 +56,21 @@ public class Trip {
     private int km;
     private int time;
     private String name;
+
+
     public Trip(){
 
+    }
+
+    public Trip(String tripID, String information, String dargatiul, String date, String photo, int km, int time, String name) {
+        this.tripID = tripID;
+        this.information = information;
+        this.dargatiul = dargatiul;
+        this.date = date;
+        this.photo = photo;
+        this.km = km;
+        this.time = time;
+        this.name = name;
     }
 
     public Trip(String information, String dargatiul, String date, String photo, int km, int time, String name) {
@@ -22,6 +81,15 @@ public class Trip {
         this.km = km;
         this.time = time;
         this.name = name;
+    }
+
+
+    public String getTripID() {
+        return tripID;
+    }
+
+    public void setTripID(String tripID) {
+        this.tripID = tripID;
     }
 
     public String getInformation() {

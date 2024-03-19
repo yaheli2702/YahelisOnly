@@ -55,6 +55,7 @@ import java.util.UUID;
 
 public class addtripactivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] darga = { "קל", "בינוני", "קשה"};
+    String[] area={ "צפון", "מרכז",  "דרום", "ירושלים"};
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
     TextView dateRangeText;
     Button calender;
@@ -76,6 +77,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             });
 
     private String selectedDifficulty;
+    private String selectedArea;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,11 +111,17 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
                 });
             }
         });
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
-        spin.setOnItemSelectedListener( this);
+        Spinner dargaspin = (Spinner) findViewById(R.id.spinner);
+        dargaspin.setOnItemSelectedListener( this);
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,darga);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(aa);
+        dargaspin.setAdapter(aa);
+
+        Spinner areaspin = (Spinner) findViewById(R.id.spinner);
+        areaspin.setOnItemSelectedListener( this);
+        ArrayAdapter aaa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,area);
+        aaa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        areaspin.setAdapter(aaa);
     }
 
     @Override
@@ -136,13 +144,18 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         EditText etKilometer = findViewById(R.id.kilometer);
         EditText etTimee = findViewById(R.id.timee);
         EditText etName = findViewById(R.id.etName);
+        EditText etNumberOfTravelers = findViewById(R.id.etNumberOfTravelers);
+        EditText etPlace = findViewById(R.id.etPlace);
+
 
         ImageView imageView = findViewById(R.id.IVaddpicture);
 
 
         String information= etInfor.getText().toString();
+        String place= etPlace.getText().toString();
         String name= etName.getText().toString();
         int km=Integer.valueOf(etKilometer.getText().toString());
+        int NumberOfTravelers=Integer.valueOf(etNumberOfTravelers.getText().toString());
         int time=Integer.valueOf(etTimee.getText().toString());
 
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
@@ -154,12 +167,14 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = imageRef.putBytes(data);
-        if (TextUtils.isEmpty(etInfor.getText()) ||s==""||photo==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
+        if (TextUtils.isEmpty(etNumberOfTravelers.getText()) ||TextUtils.isEmpty(etPlace.getText()) ||TextUtils.isEmpty(etInfor.getText()) ||s==""||photo==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
 
-            etInfor.setHint("please fill the fild");
-            etKilometer.setHint("please fill the fild");
-            etTimee.setHint("please fill the fild");
-            etName.setHint("please fill the fild");
+            etInfor.setHint("please fill the filed");
+            etNumberOfTravelers.setHint("please fill the filed");
+            etKilometer.setHint("please fill the filed");
+            etTimee.setHint("please fill the filed");
+            etName.setHint("please fill the filed");
+            etPlace.setHint("please fill the filed");
             Toast.makeText(addtripactivity.this, "Please make sure all fields are full", Toast.LENGTH_LONG).show();
             return;
         }
@@ -199,7 +214,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         if(!isAfterCurrentYearMonth)
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
-        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name);
+        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name, place,  aryyea,  NumberOfTravelers);
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         trup.setOwnerEmail(email);
 

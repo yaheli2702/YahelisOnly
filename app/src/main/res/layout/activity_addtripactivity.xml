@@ -96,6 +96,41 @@
                 android:onClick="readDataAndCreateTrip"
                 android:text="תבחרי תאריך" />
             <TextView
+                android:id="@+id/tvPlace"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="11dp"
+                android:gravity="right"
+                android:text="מקום הטיול"
+                android:textDirection="rtl"></TextView>
+
+            <EditText
+                android:id="@+id/etPlace"
+                android:layout_width="390dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+            <TextView
+                android:id="@+id/ezor"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="11dp"
+                android:gravity="right"
+                android:text="אזור הטיול" />
+
+            <Spinner
+                android:id="@+id/ezorspiner"
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="1dp" />
+            <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="17dp"
@@ -142,6 +177,24 @@
 
             <EditText
                 android:id="@+id/timee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="119dp"
+                android:ems="10"
+                android:inputType="number" />
+            <TextView
+                android:id="@+id/tvNumberOfTravelers"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="11dp"
+                android:gravity="right"
+                android:text="מספר מקסימילי של מטיילים" />
+
+            <EditText
+                android:id="@+id/etNumberOfTravelers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="90dp"

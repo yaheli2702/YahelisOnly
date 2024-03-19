@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,11 +36,24 @@ public class tripdetails extends AppCompatActivity {
     public TextView tvKmOfTrip;
     public TextView tvOwnerOfTrip;
     public TextView tvParticipentsOfTrip;
+    public TextView tvMaxNumberOfTravelers;
+    public TextView tvAreaOfTrip;
+    public TextView tvplaceOfTrip;
+
+
+    private ArrayAdapter<String> itemsAdapter;
+
+
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
 
 
     public  ImageView ivTripPic;
 
     private String tripID;
+    private Trip t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +71,13 @@ public class tripdetails extends AppCompatActivity {
     }
 
     private void getDetailsFromFB() {
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
         fb.collection("Trips").document(tripID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists())
                 {
-                    Trip t = documentSnapshot.toObject(Trip.class);
+                     t = documentSnapshot.toObject(Trip.class);
 
                     tvDetailOfTrip.setText(tvDetailOfTrip.getText().toString() + t.getInformation());
                     tvDarga.setText(tvDarga.getText().toString() + t.getDargatiul());
@@ -72,8 +85,20 @@ public class tripdetails extends AppCompatActivity {
                     tvKmOfTrip.setText(tvKmOfTrip.getText().toString() + t.getKm());
                     tvNameing.setText(tvNameing.getText().toString() + t.getName());
                     tvTimeing.setText(tvTimeing.getText().toString() + t.getTime());
+                    tvplaceOfTrip.setText(tvplaceOfTrip.getText().toString() + t.getPlace());
+                    tvAreaOfTrip.setText(tvAreaOfTrip.getText().toString() + t.getArea());
+                    tvMaxNumberOfTravelers.setText(tvMaxNumberOfTravelers.getText().toString() + t.getTotalTravelers());
+
                     tvOwnerOfTrip.setText(tvOwnerOfTrip.getText().toString() + t.getOwnerName());
 
+                    tvOwnerOfTrip.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            Log.d("TV click", "onClick: " + t.getOwnerName());
+
+                        }
+                    });
 
                     ListView lv = findViewById(R.id.lvUsers);
                     lv.setOnTouchListener(new View.OnTouchListener() {
@@ -124,6 +149,9 @@ public class tripdetails extends AppCompatActivity {
         tvKmOfTrip = findViewById(R.id.tvKmOfTrip);
         tvNameing = findViewById(R.id.tvNameOfTrip);
         tvTimeing = findViewById(R.id.tvTimeOfTrip);
+        tvplaceOfTrip = findViewById(R.id.tvplaceOfTrip);
+        tvAreaOfTrip = findViewById(R.id.tvAreaOfTrip);
+        tvMaxNumberOfTravelers = findViewById(R.id.tvMaxNumberOfTravelers);
         ivTripPic = findViewById(R.id.choosepic);
         tvParticipentsOfTrip = findViewById(R.id.tvParticipentsOfTrip);
         tvOwnerOfTrip = findViewById(R.id.tvOwnerOfTrip);
@@ -131,5 +159,24 @@ public class tripdetails extends AppCompatActivity {
     }
 
     public void addmetothetriplist(View view) {
+
+        // check I am not currently registeered...
+        String myEmail=mAuth.getCurrentUser().getEmail();
+        String myName=mAuth.getCurrentUser().getDisplayName();
+        if(!t.getParticipantsEmails().contains(myEmail)){
+            t.addParticipantsNames(myName);
+            t.addParticipantsEmails(myEmail);
+
+            fb.collection("Trips").document(tripID).update("",t.getParticipantsNames());
+            fb.collection("Trips").document(tripID).update("",t.getParticipantsEmails());
+
+            // user name...
+            itemsAdapter.notifyDataSetChanged();
+        }
+        else {
+            Log.d("lv click ", "you already exist");
+            Toast.makeText(tripdetails.this,"you already exist",Toast.LENGTH_LONG).show();
+        }
+
     }
 }

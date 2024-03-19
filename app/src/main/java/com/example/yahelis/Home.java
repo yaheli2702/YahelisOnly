@@ -70,7 +70,7 @@ public class Home extends Fragment {
         }
 
         for (int i=0; i<25;i++){
-            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+""));
+            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+"","place","צפון",10));
         }
 
 

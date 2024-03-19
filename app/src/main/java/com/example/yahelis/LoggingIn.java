@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -82,6 +83,8 @@ public class LoggingIn extends AppCompatActivity {
                         int age = Integer.valueOf(etAge.getText().toString());
                         int iden = Integer.valueOf(etIden.getText().toString());
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
                         String email = mAuth.getCurrentUser().getEmail();
                         User user = new User(username, email, age, phone, iden);
                         addUsertoFirestore(user);

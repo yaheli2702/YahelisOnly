@@ -85,9 +85,19 @@ public class LoggingIn extends AppCompatActivity {
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
-                        String email = mAuth.getCurrentUser().getEmail();
-                        User user = new User(username, email, age, phone, iden);
-                        addUsertoFirestore(user);
+                        mAuth.getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                {
+                                    String email = mAuth.getCurrentUser().getEmail();
+                                    User user = new User(username, email, age, phone, iden);
+                                    addUsertoFirestore(user);
+                                }
+                            }
+                        });
+
+
                     }
 
 

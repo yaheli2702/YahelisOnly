@@ -12,12 +12,15 @@
         android:theme="@style/Theme.Yahelis"
         tools:targetApi="31">
         <activity
+            android:name=".profileActivity"
+            android:exported="false" />
+        <activity
             android:name=".tripdetails"
             android:exported="false"
-            android:parentActivityName=".MainTraveling"/>
+            android:parentActivityName=".MainTraveling" />
         <activity
             android:name=".addtripactivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">

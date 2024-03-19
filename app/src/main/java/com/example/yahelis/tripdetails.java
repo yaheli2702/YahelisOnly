@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -23,6 +24,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.checkerframework.common.subtyping.qual.Bottom;
 
 import java.util.List;
 
@@ -94,7 +97,9 @@ public class tripdetails extends AppCompatActivity {
                     tvOwnerOfTrip.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            Intent intent=new Intent(tripdetails.this, profileActivity.class);
+                            intent.putExtra("OwnerEmail",t.getOwnerEmail());
+                            startActivity(intent);
                             Log.d("TV click", "onClick: " + t.getOwnerName());
 
                         }
@@ -117,7 +122,7 @@ public class tripdetails extends AppCompatActivity {
                             return false;
                         }
                     });
-                    ArrayAdapter<String> itemsAdapter =
+                     itemsAdapter =
                             new ArrayAdapter<String>(tripdetails.this, android.R.layout.simple_list_item_1, t.getParticipantsNames());
 
 
@@ -127,6 +132,9 @@ public class tripdetails extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Log.d("lv click ", "onItemClick: " + i);
+                            Intent intent=new Intent(tripdetails.this, profileActivity.class);
+                            intent.putExtra("ProfileEmail",mAuth.getCurrentUser().getEmail());
+                            startActivity(intent);
                             // i stand for username and also email
                         }
 
@@ -159,24 +167,33 @@ public class tripdetails extends AppCompatActivity {
     }
 
     public void addmetothetriplist(View view) {
-
+        Button b=findViewById(R.id.iWant);
         // check I am not currently registeered...
         String myEmail=mAuth.getCurrentUser().getEmail();
         String myName=mAuth.getCurrentUser().getDisplayName();
-        if(!t.getParticipantsEmails().contains(myEmail)){
-            t.addParticipantsNames(myName);
-            t.addParticipantsEmails(myEmail);
+        if(b.getText()=="אני רוצה להצטרף! צרפו אותי"){
+            if(!t.getParticipantsEmails().contains(myEmail)){
+                t.addParticipantsNames(myName);
+                t.addParticipantsEmails(myEmail);
 
-            fb.collection("Trips").document(tripID).update("",t.getParticipantsNames());
-            fb.collection("Trips").document(tripID).update("",t.getParticipantsEmails());
+                fb.collection("Trips").document(tripID).update("participantsNames",t.getParticipantsNames());
+                fb.collection("Trips").document(tripID).update("participantsEmails",t.getParticipantsEmails());
 
-            // user name...
-            itemsAdapter.notifyDataSetChanged();
+                // user name...
+                itemsAdapter.notifyDataSetChanged();
+                b.setText("ביטול הרשמה");
+
+            }
+            else {
+                Log.d("lv click ", "you already exist");
+                Toast.makeText(tripdetails.this,"you already exist",Toast.LENGTH_LONG).show();
+
+            }
         }
-        else {
-            Log.d("lv click ", "you already exist");
-            Toast.makeText(tripdetails.this,"you already exist",Toast.LENGTH_LONG).show();
+        else{
+            //להסיר את הכל
         }
+
 
     }
 }

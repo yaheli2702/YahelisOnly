@@ -117,11 +117,22 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dargaspin.setAdapter(aa);
 
-        Spinner areaspin = (Spinner) findViewById(R.id.spinner);
-        areaspin.setOnItemSelectedListener( this);
+        Spinner areaspin = (Spinner) findViewById(R.id.ezorspiner);
         ArrayAdapter aaa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,area);
         aaa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         areaspin.setAdapter(aaa);
+        areaspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedArea=area[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                selectedArea=area[0];
+            }
+        });
+
     }
 
     @Override
@@ -133,8 +144,6 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         selectedDifficulty = darga[0];
-        Log.d("spiiner darga nothing", "onItemSelected: " + selectedDifficulty);
-
     }
 
     public void readDataAndCreateTrip(View view)
@@ -214,7 +223,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         if(!isAfterCurrentYearMonth)
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
-        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name, place,  aryyea,  NumberOfTravelers);
+        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name, place,  selectedArea,  NumberOfTravelers);
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         trup.setOwnerEmail(email);
 

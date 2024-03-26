@@ -98,7 +98,7 @@ public class tripdetails extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             Intent intent=new Intent(tripdetails.this, profileActivity.class);
-                            intent.putExtra("OwnerEmail",t.getOwnerEmail());
+                            intent.putExtra("ProfileEmail",t.getOwnerEmail());
                             startActivity(intent);
                             Log.d("TV click", "onClick: " + t.getOwnerName());
 
@@ -133,7 +133,8 @@ public class tripdetails extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Log.d("lv click ", "onItemClick: " + i);
                             Intent intent=new Intent(tripdetails.this, profileActivity.class);
-                            intent.putExtra("ProfileEmail",mAuth.getCurrentUser().getEmail());
+                      //???
+                            intent.putExtra("ProfileEmail",t.getParticipantsEmails().get(i));
                             startActivity(intent);
                             // i stand for username and also email
                         }

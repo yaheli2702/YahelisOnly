@@ -5,14 +5,19 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
@@ -38,27 +43,76 @@ public class profileActivity extends AppCompatActivity {
     EditText etAgeOfMyProfile;
     EditText etBio;
     ImageView ivEdit;
-
+    ImageView ivProfile;
+    Bitmap bitmap;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
 
                 // just an example of extracting an image
                 // Handle the returned Uri
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                    ImageView imageView = findViewById(R.id.IVaddpicture);
-                    imageView.setImageBitmap(bitmap);
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    ivProfile = findViewById(R.id.ivProfile);
+                    ivProfile.setImageBitmap(bitmap);
+
+                    uploadImageToStroage(bitmap);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
+
+    private void uploadImageToStroage(Bitmap bitmap) {
+        bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
+        String photo= UUID.randomUUID().toString();
+
+        StorageReference storageRef = firebaseStorage.getReference();
+        StorageReference imageRef = storageRef.child(photo);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = imageRef.putBytes(data);
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return imageRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    Log.d("FIREBASE STORAGE", "STORAGE FIREBASE onSuccess: " + downloadUri);
+                } else {
+                    // Handle failures
+                    Log.d("FIREBASE STORAGE", "STORAGE FIREBASE onComplete:  failed");
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         String mail = getIntent().getStringExtra("ProfileEmail");
+
+        ivProfile = findViewById(R.id.ivProfile);
+
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGetContent.launch("image/*");
+            }
+        });
+
+
+//        ivProfile.setImageDrawable(klnnnnn);
 
 
         FirebaseFirestore fb=FirebaseFirestore.getInstance();
@@ -82,11 +136,24 @@ public class profileActivity extends AppCompatActivity {
 
                             if(user.getEmail().equals(mAuth.getCurrentUser().getEmail())){
                                 isSame=true;
-                                etNameOfMyProfile.setEnabled(true);
-                                etAgeOfMyProfile.setEnabled(true);
-                                etBio.setEnabled(false);
+                             //   etNameOfMyProfile.setEnabled(true);
+                         //       etAgeOfMyProfile.setEnabled(true);
+                          //      etBio.setEnabled(false);
                                 ivEdit.setVisibility(View.VISIBLE);
-                            } }
+                            }
+                            else {
+                                etNameOfMyProfile.setFocusable(false);
+                                etNameOfMyProfile.setClickable(false);
+                                etNameOfMyProfile.setCursorVisible(false);
+                                etAgeOfMyProfile.setFocusable(false);
+                                etAgeOfMyProfile.setClickable(false);
+                                etAgeOfMyProfile.setCursorVisible(false);
+                                etBio.setFocusable(false);
+                                etBio.setClickable(false);
+                                etBio.setCursorVisible(false);
+                            }
+
+                        }
                     }
                 });
 

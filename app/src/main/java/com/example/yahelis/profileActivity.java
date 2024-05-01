@@ -45,6 +45,8 @@ public class profileActivity extends AppCompatActivity {
     ImageView ivEdit;
     ImageView ivProfile;
     Bitmap bitmap;
+
+    private int whichPicture = 0;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
 
@@ -64,10 +66,20 @@ public class profileActivity extends AppCompatActivity {
 
     private void uploadImageToStroage(Bitmap bitmap) {
         bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
-        String photo= UUID.randomUUID().toString();
+
+        // choose name by                  whichPicture  value
+        // 0 - profile
+        // 1,2,3 bottom
+        // we open a directory with the user uniuqe id as name
+        // eahc dir will hold the images
+        String photo = "profilepic"+ whichPicture;
+
+        String directory = mAuth.getCurrentUser().getUid();
+
+
 
         StorageReference storageRef = firebaseStorage.getReference();
-        StorageReference imageRef = storageRef.child(photo);
+        StorageReference imageRef = storageRef.child(directory +"/" + photo);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
@@ -107,6 +119,8 @@ public class profileActivity extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                whichPicture = 0;
                 mGetContent.launch("image/*");
             }
         });

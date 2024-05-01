@@ -97,11 +97,22 @@ public class tripdetails extends AppCompatActivity {
                     tvOwnerOfTrip.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent=new Intent(tripdetails.this, profileActivity.class);
-                            intent.putExtra("ProfileEmail",t.getOwnerEmail());
-                            startActivity(intent);
-                            Log.d("TV click", "onClick: " + t.getOwnerName());
+                            // I am the manager and the boss of the trip
+                            if(t.getOwnerEmail().equals(mAuth.getCurrentUser().getEmail())) {
+                                Intent intent = new Intent(tripdetails.this, MainTraveling.class);
+                                intent.putExtra("ProfileEmail", t.getOwnerEmail());
+                                intent.putExtra("showProfile", true);
+                                startActivity(intent);
+                                Log.d("TV click", "onClick: " + t.getOwnerName());
+                            }
+                            else
+                            {
+                                Intent intent=new Intent(tripdetails.this, profileActivity.class);
+                                //???
+                                intent.putExtra("ProfileEmail",t.getOwnerEmail());
+                                startActivity(intent);
 
+                            }
                         }
                     });
 

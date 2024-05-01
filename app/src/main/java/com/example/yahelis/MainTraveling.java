@@ -38,13 +38,19 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class MainTraveling extends FragmentActivity {
 
     ViewPager2 viewPager;
+
+    private boolean showProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_traveling);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);        initViews();
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        showProfile =  getIntent().getBooleanExtra("showProfile",false);
+
+        initViews();
+
 
     }
     private void initViews() {
@@ -60,6 +66,10 @@ public class MainTraveling extends FragmentActivity {
         viewPager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout,viewPager,(tab, position) -> tab.setIcon(arrDraw[position])
         ).attach();
+
+
+        if(showProfile)
+            viewPager.setCurrentItem(3);
     }
 
 }

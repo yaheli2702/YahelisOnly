@@ -102,6 +102,8 @@ public class Profil extends Fragment {
 
 
 
+
+
         StorageReference storageRef = firebaseStorage.getReference();
         StorageReference imageRef = storageRef.child(directory +"/" + photo);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -207,14 +209,19 @@ public class Profil extends Fragment {
                             etNameOfMyProfile.setText(user.getUsername());
                             etAgeOfMyProfile.setText(""+user.getAge());
 
+
+                            String photo = "profilepic"+ 0;
+
+                            String directory = mAuth.getCurrentUser().getUid();
+
+                            String url = directory + "/" + photo;
+
+                            MyFirebaseStorage storage = new MyFirebaseStorage();
+                            storage.getImage(ivProfile,url);
+
                             if(user.getEmail().equals(mAuth.getCurrentUser().getEmail())){
                                 isSame=true;
-                                //   etNameOfMyProfile.setEnabled(true);
-                                //       etAgeOfMyProfile.setEnabled(true);
-                                //      etBio.setEnabled(false);
-                                ivEdit.setVisibility(View.VISIBLE);
-                            }
-                            else {
+                                //ivEdit.setVisibility(View.VISIBLE);
                                 etNameOfMyProfile.setFocusable(false);
                                 etNameOfMyProfile.setClickable(false);
                                 etNameOfMyProfile.setCursorVisible(false);
@@ -225,6 +232,7 @@ public class Profil extends Fragment {
                                 etBio.setClickable(false);
                                 etBio.setCursorVisible(false);
                             }
+
 
                         }
                     }
@@ -238,6 +246,15 @@ public class Profil extends Fragment {
             etBio.setVisibility(View.VISIBLE);
             etAgeOfMyProfile.setVisibility(View.VISIBLE);
             etNameOfMyProfile.setVisibility(View.VISIBLE);
+            etNameOfMyProfile.setFocusable(true);
+            etNameOfMyProfile.setClickable(true);
+            etNameOfMyProfile.setCursorVisible(true);
+            etAgeOfMyProfile.setFocusable(true);
+            etAgeOfMyProfile.setClickable(true);
+            etAgeOfMyProfile.setCursorVisible(true);
+            etBio.setFocusable(true);
+            etBio.setClickable(true);
+            etBio.setCursorVisible(true);
 //            Bitmap bitmap = ((BitmapDrawable)ivEdit.getDrawable()).getBitmap();
 //            String photo= UUID.randomUUID().toString();
 //

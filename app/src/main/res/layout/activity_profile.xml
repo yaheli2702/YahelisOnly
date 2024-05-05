@@ -103,6 +103,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/ivProfile"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        android:src="@android:drawable/ic_menu_edit"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

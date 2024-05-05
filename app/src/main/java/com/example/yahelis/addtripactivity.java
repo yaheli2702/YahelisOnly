@@ -11,6 +11,7 @@ import androidx.core.util.Pair;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -89,11 +90,8 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         Date currentTime = Calendar.getInstance().getTime();
 
         CalendarConstraints constraints = new CalendarConstraints.Builder()
-                .setStart(Calendar.getInstance().getTimeInMillis())
-         //       .setEnd(1000*3600*24*7*10+Calendar.getInstance().getTimeInMillis())
-                .build();
-//        CalendarConstraints constraintsBuilder= new CalendarConstraints.Builder()
-//                .setValidator(DateValidatorPointForward.from((long)currentTime));
+                .setStart(MaterialDatePicker.todayInUtcMilliseconds()).build();
+
         MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
               .setCalendarConstraints(constraints)
                 .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds()+1000*24*3600,MaterialDatePicker.todayInUtcMilliseconds())).build();
@@ -159,24 +157,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
 
         ImageView imageView = findViewById(R.id.IVaddpicture);
 
-
-        String information= etInfor.getText().toString();
-        String place= etPlace.getText().toString();
-        String name= etName.getText().toString();
-        int km=Integer.valueOf(etKilometer.getText().toString());
-        int NumberOfTravelers=Integer.valueOf(etNumberOfTravelers.getText().toString());
-        int time=Integer.valueOf(etTimee.getText().toString());
-
-        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        String photo= UUID.randomUUID().toString();
-
-        StorageReference storageRef = firebaseStorage.getReference();
-        StorageReference imageRef = storageRef.child(photo);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] data = baos.toByteArray();
-        UploadTask uploadTask = imageRef.putBytes(data);
-        if (TextUtils.isEmpty(etNumberOfTravelers.getText()) ||TextUtils.isEmpty(etPlace.getText()) ||TextUtils.isEmpty(etInfor.getText()) ||s==""||photo==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
+        if (TextUtils.isEmpty(etNumberOfTravelers.getText()) ||TextUtils.isEmpty(etPlace.getText()) ||TextUtils.isEmpty(etInfor.getText()) ||s==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
 
             etInfor.setHint("please fill the filed");
             etNumberOfTravelers.setHint("please fill the filed");
@@ -187,6 +168,28 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             Toast.makeText(addtripactivity.this, "Please make sure all fields are full", Toast.LENGTH_LONG).show();
             return;
         }
+
+
+
+        String information= etInfor.getText().toString();
+        String place= etPlace.getText().toString();
+        String name= etName.getText().toString();
+        int km=Integer.valueOf(etKilometer.getText().toString());
+        int NumberOfTravelers=Integer.valueOf(etNumberOfTravelers.getText().toString());
+        int time=Integer.valueOf(etTimee.getText().toString());
+
+        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+
+
+        String photo= UUID.randomUUID().toString();
+
+        StorageReference storageRef = firebaseStorage.getReference();
+        StorageReference imageRef = storageRef.child(photo);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = imageRef.putBytes(data);
+
         Calendar calendar = Calendar.getInstance();
         DateFormat date= new SimpleDateFormat("EEEE", Locale.getDefault());
         uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {

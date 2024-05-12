@@ -86,29 +86,36 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         dateRangeText=findViewById(R.id.changeDate);
         calender=findViewById(R.id.chooseDate);
 
-        //long twoYears = 1000*3600*24*365*2;
-        Date currentTime = Calendar.getInstance().getTime();
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        long todayInMillis = MaterialDatePicker.todayInUtcMilliseconds();
 
-        CalendarConstraints constraints = new CalendarConstraints.Builder()
-                .setStart(MaterialDatePicker.todayInUtcMilliseconds()).build();
+        constraintsBuilder.setStart(todayInMillis);
 
-        MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
-              .setCalendarConstraints(constraints)
-                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds()+1000*24*3600,MaterialDatePicker.todayInUtcMilliseconds())).build();
+        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+
+        CalendarConstraints constraints = constraintsBuilder.build();
+
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder =
+                MaterialDatePicker.Builder.dateRangePicker();
+
+        builder.setCalendarConstraints(constraints);
+
+        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
 
         calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 materialDatePicker.show(getSupportFragmentManager(), "Tag_picker");
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
-                    public void onPositiveButtonClick(Object selection) {
+                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
                         dateRangeText.setText(materialDatePicker.getHeaderText());
-                        s=materialDatePicker.getHeaderText();
+                        s = materialDatePicker.getHeaderText();
                     }
                 });
             }
         });
+
         Spinner dargaspin = (Spinner) findViewById(R.id.spinner);
         dargaspin.setOnItemSelectedListener( this);
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,darga);

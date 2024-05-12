@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -63,12 +65,19 @@ public class Profil extends Fragment {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
 
+    private DocumentReference docRef = null;
+
     EditText etNameOfMyProfile;
     EditText etAgeOfMyProfile;
     EditText etBio;
     ImageView ivEdit;
     ImageView ivProfile;
+    ImageView ivFirst;
+    ImageView ivSecond;
+    ImageView ivThird;
+
     Bitmap bitmap;
+    TextView tvSave;
 
     private int whichPicture = 0;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -78,6 +87,7 @@ public class Profil extends Fragment {
                 // Handle the returned Uri
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), uri);
+                    // לעשות סוויטצ קייס על כל אחד מוויצפיכצר ואס להעלות לפיירבייס
                     ivProfile = view.findViewById(R.id.ivProfile2);
                     ivProfile.setImageBitmap(bitmap);
 
@@ -180,15 +190,30 @@ public class Profil extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ivProfile = view.findViewById(R.id.ivProfile2);
-
-        ivProfile.setOnClickListener(new View.OnClickListener() {
+        ivFirst = view.findViewById(R.id.ivFirst2);
+        ivSecond = view.findViewById(R.id.ivSecond2);
+        ivThird = view.findViewById(R.id.ivThird2);
+        etNameOfMyProfile = view.findViewById(R.id.etNameOfMyProfile2);
+        etAgeOfMyProfile = view.findViewById(R.id.etAgeOfMyProfile2);
+        etBio = view.findViewById(R.id.etBio2);
+        tvSave=view.findViewById(R.id.tvSave);
+        ivEdit=view.findViewById(R.id.ivEdit2);
+        ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                whichPicture = 0;
-                mGetContent.launch("image/*");
+                editUserDetails(view);
             }
         });
+
+
+
+
+
+        getUserDetails();
+
+    }
+
+    private void getUserDetails() {
 
         FirebaseFirestore fb=FirebaseFirestore.getInstance();
         fb.collection("Users")
@@ -198,16 +223,18 @@ public class Profil extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            etNameOfMyProfile = view.findViewById(R.id.etNameOfMyProfile2);
-                            etAgeOfMyProfile = view.findViewById(R.id.etAgeOfMyProfile2);
-                            etBio = view.findViewById(R.id.etBio2);
-                            ivEdit=view.findViewById(R.id.ivEdit2);
+
                             if(task.getResult().isEmpty())
                                 return;
+
+                            // get the first docuemtn since thedre is only one
+                            docRef = task.getResult().getDocuments().get(0).getReference();
+
 
                             user =  task.getResult().getDocuments().get(0).toObject(User.class);
                             etNameOfMyProfile.setText(user.getUsername());
                             etAgeOfMyProfile.setText(""+user.getAge());
+                            etBio.setText(user.getInfo());
 
 
                             String photo = "profilepic"+ 0;
@@ -221,16 +248,7 @@ public class Profil extends Fragment {
 
                             if(user.getEmail().equals(mAuth.getCurrentUser().getEmail())){
                                 isSame=true;
-                                //ivEdit.setVisibility(View.VISIBLE);
-                                etNameOfMyProfile.setFocusable(false);
-                                etNameOfMyProfile.setClickable(false);
-                                etNameOfMyProfile.setCursorVisible(false);
-                                etAgeOfMyProfile.setFocusable(false);
-                                etAgeOfMyProfile.setClickable(false);
-                                etAgeOfMyProfile.setCursorVisible(false);
-                                etBio.setFocusable(false);
-                                etBio.setClickable(false);
-                                etBio.setCursorVisible(false);
+                                setFalse();
                             }
 
 
@@ -240,30 +258,96 @@ public class Profil extends Fragment {
 
         // ONLY HERE THE FRAGMENT IS ALREADY CREATED!
 
+
     }
+
+    public void setTrue(){
+        etNameOfMyProfile.setFocusableInTouchMode(true);
+        etNameOfMyProfile.setFocusable(true);
+        etNameOfMyProfile.setClickable(true);
+        etNameOfMyProfile.setCursorVisible(true);
+        etAgeOfMyProfile.setFocusableInTouchMode(true);
+        etAgeOfMyProfile.setFocusable(true);
+        etAgeOfMyProfile.setClickable(true);
+        etAgeOfMyProfile.setCursorVisible(true);
+        etBio.setFocusableInTouchMode(true);
+        etBio.setFocusable(true);
+        etBio.setClickable(true);
+        etBio.setCursorVisible(true);
+        tvSave.setVisibility(View.VISIBLE);
+    }
+    public void setFalse(){
+        etNameOfMyProfile.setFocusable(false);
+        etNameOfMyProfile.setClickable(false);
+        etNameOfMyProfile.setCursorVisible(false);
+        etAgeOfMyProfile.setFocusable(false);
+        etAgeOfMyProfile.setClickable(false);
+        etAgeOfMyProfile.setCursorVisible(false);
+        etBio.setFocusable(false);
+        etBio.setClickable(false);
+        etBio.setCursorVisible(false);
+    }
+
+
     public void editUserDetails(View view) {
         if(isSame){
-            etBio.setVisibility(View.VISIBLE);
-            etAgeOfMyProfile.setVisibility(View.VISIBLE);
-            etNameOfMyProfile.setVisibility(View.VISIBLE);
-            etNameOfMyProfile.setFocusable(true);
-            etNameOfMyProfile.setClickable(true);
-            etNameOfMyProfile.setCursorVisible(true);
-            etAgeOfMyProfile.setFocusable(true);
-            etAgeOfMyProfile.setClickable(true);
-            etAgeOfMyProfile.setCursorVisible(true);
-            etBio.setFocusable(true);
-            etBio.setClickable(true);
-            etBio.setCursorVisible(true);
-//            Bitmap bitmap = ((BitmapDrawable)ivEdit.getDrawable()).getBitmap();
-//            String photo= UUID.randomUUID().toString();
-//
-//            StorageReference storageRef = firebaseStorage.getReference();
-//            StorageReference imageRef = storageRef.child(photo);
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//            byte[] data = baos.toByteArray();
-//            UploadTask uploadTask = imageRef.putBytes(data);
+            setTrue();
+            ivProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    whichPicture = 0;
+                    mGetContent.launch("image/*");
+                }
+            });
+            ivThird.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    whichPicture = 3;
+                    mGetContent.launch("image/*");
+                }
+            });
+            ivSecond.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    whichPicture = 2;
+                    mGetContent.launch("image/*");
+                }
+            });
+            ivFirst.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    whichPicture = 1;
+                    mGetContent.launch("image/*");
+                }
+            });
+            tvSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   Toast.makeText(getActivity(),"saved",Toast.LENGTH_LONG).show();
+                    tvSave.setVisibility(View.INVISIBLE);
+                    setFalse();
+                    saveUsertoFB();
+                }
+            });
         }
+    }
+
+    private void saveUsertoFB() {
+
+        // document ref
+        // user details -> read from edit text
+        // update firebase
+
+        String bio = etBio.getText().toString();
+        user.setInfo(bio);
+        String age = etAgeOfMyProfile.getText().toString();
+        user.setAge(Integer.valueOf(age));
+        String name = etNameOfMyProfile.getText().toString();
+        user.setUsername(name);
+        docRef.set(user);
     }
 }

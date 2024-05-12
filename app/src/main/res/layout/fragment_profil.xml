@@ -61,38 +61,33 @@
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="205dp"
         android:foreground="@drawable/border"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@android:drawable/ic_menu_gallery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etBio2"
-        tools:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:layout_constraintTop_toBottomOf="@+id/etBio2" />
 
     <ImageView
-        android:id="@+id/ivSecond"
+        android:id="@+id/ivSecond2"
         android:layout_width="90dp"
         android:layout_height="87dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="205dp"
+        android:layout_marginTop="52dp"
         android:foreground="@drawable/border"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@android:drawable/ic_menu_gallery"
         app:layout_constraintEnd_toStartOf="@+id/ivFirst2"
+        app:layout_constraintHorizontal_bias="0.196"
         app:layout_constraintStart_toEndOf="@+id/ivThird2"
-        app:layout_constraintTop_toBottomOf="@+id/etBio2"
-        tools:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:layout_constraintTop_toBottomOf="@+id/etBio2" />
 
     <ImageView
         android:id="@+id/ivThird2"
-        android:layout_width="95dp"
-        android:layout_height="84dp"
+        android:layout_width="84dp"
+        android:layout_height="89dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="55dp"
-        android:layout_marginBottom="205dp"
         android:foreground="@drawable/border"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@android:drawable/ic_menu_gallery"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etBio2"
-        tools:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:layout_constraintTop_toBottomOf="@+id/etBio2" />
 
     <ImageView
         android:id="@+id/ivEdit2"
@@ -101,8 +96,17 @@
         android:layout_marginTop="232dp"
         android:src="@android:drawable/ic_menu_edit"
         android:layout_marginEnd="32dp"
-        android:onClick="editUserDetails"
         app:layout_constraintEnd_toStartOf="@+id/ivProfile2"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSave"
+        android:layout_width="30dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:text="save"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivThird2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

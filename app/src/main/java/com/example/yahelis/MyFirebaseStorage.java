@@ -2,6 +2,7 @@ package com.example.yahelis;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ public class MyFirebaseStorage {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
+                Log.d("Storage image", "onFailure: " + exception.getMessage());
             }
         });
     }

@@ -90,16 +90,12 @@ public class Profil extends Fragment {
                     // לעשות סוויטצ קייס על כל אחד מוויצפיכצר ואס להעלות לפיירבייס
                     if (whichPicture==0)
                     {
-                        ivProfile = view.findViewById(R.id.ivProfile2);
                         ivProfile.setImageBitmap(bitmap);
                     } else if (whichPicture==1) {
-                        ivFirst = view.findViewById(R.id.ivFirst2);
                         ivFirst.setImageBitmap(bitmap);
                     } else if (whichPicture==2) {
-                        ivSecond = view.findViewById(R.id.ivSecond2);
                         ivSecond.setImageBitmap(bitmap);
                     }else if (whichPicture==3) {
-                        ivThird = view.findViewById(R.id.ivThird2);
                         ivThird.setImageBitmap(bitmap);
                     }
 
@@ -112,8 +108,14 @@ public class Profil extends Fragment {
             });
 
     private void uploadImageToStroage(Bitmap bitmap) {
-        bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
-
+        if(whichPicture==0)
+            bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
+        else if (whichPicture==1)
+            bitmap = ((BitmapDrawable)ivFirst.getDrawable()).getBitmap();
+        else if (whichPicture==2)
+            bitmap = ((BitmapDrawable)ivSecond.getDrawable()).getBitmap();
+        else if (whichPicture==3)
+            bitmap = ((BitmapDrawable)ivThird.getDrawable()).getBitmap();
         // choose name by                  whichPicture  value
         // 0 - profile
         // 1,2,3 bottom
@@ -217,11 +219,6 @@ public class Profil extends Fragment {
                 editUserDetails(view);
             }
         });
-
-
-
-
-
         getUserDetails();
 
     }
@@ -250,19 +247,20 @@ public class Profil extends Fragment {
                             etBio.setText(user.getInfo());
 
 
-                            String photo = "profilepic"+ whichPicture;
+                            String photo = "profilepic";
 
                             String directory = mAuth.getCurrentUser().getUid();
 
-                            String url = directory + "/" + photo;
+                            String url = directory + "/" + photo + 0;
                             MyFirebaseStorage storage = new MyFirebaseStorage();
-                            if(whichPicture==0)
-                                storage.getImage(ivProfile,url);
-                            else if (whichPicture==1)
-                                storage.getImage(ivFirst,url);
-                            else if (whichPicture==2)
+                            storage.getImage(ivProfile,url);
+
+                            url = directory + "/" + photo + 1;
+                            storage.getImage(ivFirst,url);
+                            url = directory + "/" + photo + 2;
+
                                 storage.getImage(ivSecond,url);
-                            else if (whichPicture==3)
+                            url = directory + "/" + photo + 3;
                                 storage.getImage(ivThird,url);
 
 

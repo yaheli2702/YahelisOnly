@@ -88,8 +88,21 @@ public class Profil extends Fragment {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), uri);
                     // לעשות סוויטצ קייס על כל אחד מוויצפיכצר ואס להעלות לפיירבייס
-                    ivProfile = view.findViewById(R.id.ivProfile2);
-                    ivProfile.setImageBitmap(bitmap);
+                    if (whichPicture==0)
+                    {
+                        ivProfile = view.findViewById(R.id.ivProfile2);
+                        ivProfile.setImageBitmap(bitmap);
+                    } else if (whichPicture==1) {
+                        ivFirst = view.findViewById(R.id.ivFirst2);
+                        ivFirst.setImageBitmap(bitmap);
+                    } else if (whichPicture==2) {
+                        ivSecond = view.findViewById(R.id.ivSecond2);
+                        ivSecond.setImageBitmap(bitmap);
+                    }else if (whichPicture==3) {
+                        ivThird = view.findViewById(R.id.ivThird2);
+                        ivThird.setImageBitmap(bitmap);
+                    }
+
 
                     uploadImageToStroage(bitmap);
 
@@ -237,14 +250,22 @@ public class Profil extends Fragment {
                             etBio.setText(user.getInfo());
 
 
-                            String photo = "profilepic"+ 0;
+                            String photo = "profilepic"+ whichPicture;
 
                             String directory = mAuth.getCurrentUser().getUid();
 
                             String url = directory + "/" + photo;
-
                             MyFirebaseStorage storage = new MyFirebaseStorage();
-                            storage.getImage(ivProfile,url);
+                            if(whichPicture==0)
+                                storage.getImage(ivProfile,url);
+                            else if (whichPicture==1)
+                                storage.getImage(ivFirst,url);
+                            else if (whichPicture==2)
+                                storage.getImage(ivSecond,url);
+                            else if (whichPicture==3)
+                                storage.getImage(ivThird,url);
+
+
 
                             if(user.getEmail().equals(mAuth.getCurrentUser().getEmail())){
                                 isSame=true;

@@ -4,16 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C0F8F4"
     tools:context=".FindTrip">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvezortiol"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="11dp"
+            android:gravity="right"
+            android:text="אזור הטיול" />
+
+        <Spinner
+            android:id="@+id/ezortiolspiner"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="1dp" />
+        <TextView
+            android:id="@+id/tvdargatiol"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="11dp"
+            android:gravity="right"
+            android:text="דרגת טיול" />
+
+        <Spinner
+            android:id="@+id/dargatiolspinner"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="1dp" />
+        <TextView
+            android:id="@+id/tvtimetiol"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="11dp"
+            android:gravity="right"
+            android:text="תאריך הטיול" />
+
+        <Spinner
+            android:id="@+id/timetiolpinner"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="1dp" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="148dp"
+            android:layout_height="36dp"
+            android:backgroundTint="#13EDCD"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="36dp"
+            android:text="חיפוש" />
+
+    </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="117dp"
-        android:text="findtrip"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

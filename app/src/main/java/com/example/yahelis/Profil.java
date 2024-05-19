@@ -311,6 +311,10 @@ public class Profil extends Fragment {
     public void editUserDetails(View view) {
         if(isSame){
             setTrue();
+            ivProfile.setEnabled(true);
+            ivFirst.setEnabled(true);
+            ivSecond.setEnabled(true);
+            ivThird.setEnabled(true);
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -350,6 +354,11 @@ public class Profil extends Fragment {
                     tvSave.setVisibility(View.INVISIBLE);
                     setFalse();
                     saveUsertoFB();
+                    ivProfile.setEnabled(false);
+                    ivFirst.setEnabled(false);
+                    ivSecond.setEnabled(false);
+                    ivThird.setEnabled(false);
+
                 }
             });
         }
@@ -360,7 +369,6 @@ public class Profil extends Fragment {
         // document ref
         // user details -> read from edit text
         // update firebase
-
         String bio = etBio.getText().toString();
         user.setInfo(bio);
         String age = etAgeOfMyProfile.getText().toString();

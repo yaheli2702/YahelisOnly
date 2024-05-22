@@ -165,13 +165,22 @@ public class FindTrip extends Fragment {
         for (int i=0;i<tripsArr.size();i++)
         {
             Trip t=tripsArr.get(i);
-            Log.d("search", "search: "+t.getDate());
+//            Log.d("search", "search: "+t.getDate());
+//            Log.d("search", t.getArea());
+//            Log.d("search", selectedArea);
+//            Log.d("search", meses[0]);
+//            Log.d("search", t.getDargatiul());
+//            Log.d("search", selectedDifficulty);
+//            Log.d("search", selectedMes);
+
             if((t.getArea().equals(selectedArea)||selectedArea.equals(meses[0]))
                     &&
                     (t.getDargatiul().equals(selectedDifficulty)||selectedDifficulty.equals(meses[0]))
                     &&
                     (t.getDate().equals(selectedMes)||selectedMes.equals(meses[0]))){
                 filter.add(t);
+                Log.d("search", "working");
+
             }
         }
 

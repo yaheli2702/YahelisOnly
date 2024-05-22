@@ -10,9 +10,9 @@
     <ImageView
         android:id="@+id/tripicture"
         android:layout_width="275dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

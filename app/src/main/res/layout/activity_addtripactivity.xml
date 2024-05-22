@@ -205,10 +205,10 @@
 
             <ImageView
                 android:id="@+id/IVaddpicture"
-                android:layout_width="match_parent"
-                android:layout_height="271dp"
+                android:layout_width="384dp"
+                android:layout_height="197dp"
                 android:onClick="addpicture"
-                app:srcCompat="@drawable/backgroundpic" />
+                app:srcCompat="@drawable/chooseapicture" />
 
             <Button
                 android:id="@+id/button2"

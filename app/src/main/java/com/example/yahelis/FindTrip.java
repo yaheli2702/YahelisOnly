@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.units.qual.A;
@@ -39,6 +43,7 @@ public class FindTrip extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private TripAdapter adapter;
 
     private String selectedDifficulty;
     private String selectedArea;
@@ -183,6 +188,17 @@ public class FindTrip extends Fragment {
 
             }
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
+        RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(LayoutManager);
+
+        adapter = new TripAdapter(filter);
+
+        recyclerView.setAdapter(adapter);
+
+
+
 
 
     }

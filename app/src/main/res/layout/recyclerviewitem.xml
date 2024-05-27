@@ -26,29 +26,29 @@
         android:layout_marginBottom="11dp"
         android:background="#67D3FA"
         android:text="דרגה"
-        app:layout_constraintBottom_toTopOf="@+id/tvTimeing"
+        app:layout_constraintBottom_toTopOf="@+id/tvDateing"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameing" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEzoring" />
 
     <TextView
-        android:id="@+id/tvNameing"
+        android:id="@+id/tvEzoring"
         android:layout_width="103dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:text="שם הטיול"
         android:background="#67D3FA"
+        android:text="אזור הטיול"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTimeing"
+        android:id="@+id/tvDateing"
         android:layout_width="103dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="11dp"
         android:background="#67D3FA"
-        android:text="זמן טיול"
+        android:text="תאריך"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
         app:layout_constraintTop_toBottomOf="@+id/tvRecDarga" />
 

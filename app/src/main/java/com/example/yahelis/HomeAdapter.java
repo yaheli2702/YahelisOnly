@@ -38,8 +38,8 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Trip model) {
 
                 holder.tvDarga.setText(model.getDargatiul());
-                holder.tvNameing.setText(model.getName());
-                holder.tvTimeing.setText(""+model.getTime());
+                holder.tvEzoring.setText(model.getArea());
+                holder.tvDateing.setText(""+model.getDate());
                 holder.tripID = model.getTripID();
                 storage.getImage(holder.ivTripPic,model.getPhoto());
     }
@@ -61,8 +61,8 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView tvDarga;
-        public final TextView tvNameing;
-        public final TextView tvTimeing;
+        public final TextView tvEzoring;
+        public final TextView tvDateing;
 
         public final ImageView ivTripPic;
 
@@ -72,8 +72,8 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Trip,HomeAdapter.ViewH
             super(itemView);
 
             tvDarga=   itemView.findViewById(R.id.tvRecDarga);
-            tvNameing=   itemView.findViewById(R.id.tvNameing);
-            tvTimeing=   itemView.findViewById(R.id.tvTimeing);
+            tvEzoring=   itemView.findViewById(R.id.tvEzoring);
+            tvDateing=   itemView.findViewById(R.id.tvDateing);
             ivTripPic=  itemView.findViewById(R.id.tripicture);
 
 

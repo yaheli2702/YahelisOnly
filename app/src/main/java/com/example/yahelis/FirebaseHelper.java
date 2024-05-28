@@ -1,0 +1,76 @@
+package com.example.yahelis;
+
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.BlockingDeque;
+
+public class FirebaseHelper {
+
+
+
+    private IFirebaseResult fbResult;
+
+    public FirebaseHelper(IFirebaseResult result)
+    {
+        this.fbResult = result;
+    }
+
+    public interface IFirebaseResult
+    {
+        void getData(ArrayList<Trip> arr);
+    }
+
+    public void getDataFromFirebase() {
+        FirebaseFirestore fb = FirebaseFirestore.getInstance();
+
+        fb.collection("Trips").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                ArrayList<Trip> tripsArr = new ArrayList<>();
+
+                for (DocumentSnapshot d:queryDocumentSnapshots.getDocuments()) {
+
+                    Trip t = d.toObject(Trip.class);
+
+                    if(!isDateInPast(t.getDate())){
+                        tripsArr.add(t);
+                    }
+
+                }
+
+                fbResult.getData(tripsArr);
+
+
+            }
+        });
+
+    }
+//    private ArrayList<String> months = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+    public static boolean isDateInPast(String dateString) {
+        String endDateString = dateString.split("–")[1].trim();
+        Log.d("DATE CHECK ", "isDateInPast: "+endDateString);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH);
+        try {
+            LocalDate endDate = LocalDate.parse(endDateString, formatter);
+            LocalDate today = LocalDate.now();
+            return endDate.isBefore(today);
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+}

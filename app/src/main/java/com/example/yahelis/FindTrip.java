@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * Use the {@link FindTrip#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FindTrip extends Fragment {
+public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult{
 
     String[] darga = {"בחר.י", "קל", "בינוני", "קשה" };
     String[] area = { "בחר.י","צפון", "מרכז", "דרום", "ירושלים" };
@@ -91,7 +91,9 @@ public class FindTrip extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getDataFromFirebase();
+      //  getDataFromFirebase();
+        FirebaseHelper fbHelper = new FirebaseHelper(this);
+        fbHelper.getDataFromFirebase();
 
         Button srch = view.findViewById(R.id.search);
 
@@ -149,7 +151,7 @@ public class FindTrip extends Fragment {
             }
         });
     }
-
+/*
     private void getDataFromFirebase() {
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
@@ -164,6 +166,8 @@ public class FindTrip extends Fragment {
         });
 
     }
+
+ */
 
     public void search() {
         ArrayList<Trip> filter = new ArrayList<>();
@@ -201,5 +205,10 @@ public class FindTrip extends Fragment {
 
 
 
+    }
+
+    @Override
+    public void getData(ArrayList<Trip> arr) {
+        tripsArr = arr;
     }
 }

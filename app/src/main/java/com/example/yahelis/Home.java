@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Use the {@link Home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment {
+public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,12 +70,9 @@ public class Home extends Fragment {
         }
 
         for (int i=0; i<25;i++){
-            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+"","place","צפון",10));
+            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+"","place","צפון",10,"fkfkfkkfkfkf"));
         }
 
-
-       // HomeAdapter homeAdapter= new HomeAdapter(trips);
-      //  recyclerView.setAdapter(homeAdapter);
     }
 
     @Override
@@ -101,30 +98,16 @@ public class Home extends Fragment {
 
     }
     //firebase
-    private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
-    private CollectionReference tripsRef =firebaseFirestore.collection("Trips");
-
-    private HomeAdapter adapter;
+//    private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
+//    private CollectionReference tripsRef =firebaseFirestore.collection("Trips");
+//
+   private TripAdapter adapter;
 
 
     private void setupRecyclerView() {
 
-        // set the recycler view display
-
-        RecyclerView recyclerView = fragView.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(LayoutManager);
-
-        Query query = tripsRef;
-
-        // get the data from firebase
-        // display in the recycler view
-        FirestoreRecyclerOptions<Trip> options = new FirestoreRecyclerOptions.Builder<Trip>().
-            setQuery(query, Trip.class).build();
-
-        adapter = new HomeAdapter(options);
-
-        recyclerView.setAdapter(adapter);
+        FirebaseHelper fbHelper = new FirebaseHelper(this);
+        fbHelper.getDataFromFirebase();
 
 
     }
@@ -133,12 +116,28 @@ public class Home extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
     }
 
     @Override
     public  void onStop() {
         super.onStop();
-        adapter.stopListening();
+    }
+
+    @Override
+    public void getData(ArrayList<Trip> arr) {
+
+        // set the recycler view display
+
+        RecyclerView recyclerView = fragView.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(LayoutManager);
+
+
+
+        adapter = new TripAdapter(arr);
+
+        recyclerView.setAdapter(adapter);
+
+
     }
 }

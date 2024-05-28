@@ -9,10 +9,12 @@
 
     <ImageView
         android:id="@+id/tripicture"
-        android:layout_width="275dp"
-        android:layout_height="108dp"
+        android:layout_width="272dp"
+        android:layout_height="119dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -22,11 +24,9 @@
         android:layout_width="103dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginTop="15dp"
         android:background="#67D3FA"
         android:text="דרגה"
-        app:layout_constraintBottom_toTopOf="@+id/tvDateing"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
         app:layout_constraintTop_toBottomOf="@+id/tvEzoring" />
 
@@ -47,8 +47,11 @@
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="11dp"
+        android:layout_marginBottom="10dp"
         android:background="#67D3FA"
+
         android:text="תאריך"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
         app:layout_constraintTop_toBottomOf="@+id/tvRecDarga" />
 

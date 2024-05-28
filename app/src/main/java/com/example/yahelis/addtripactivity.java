@@ -138,6 +138,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             }
         });
 
+
     }
 
     @Override
@@ -154,17 +155,18 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     public void readDataAndCreateTrip(View view)
     {
         EditText etInfor = findViewById(R.id.editTextTextMultiLine);
-        //DatePicker dtDate = findViewById(R.id.datePicker1);
         EditText etKilometer = findViewById(R.id.kilometer);
         EditText etTimee = findViewById(R.id.timee);
         EditText etName = findViewById(R.id.etName);
         EditText etNumberOfTravelers = findViewById(R.id.etNumberOfTravelers);
         EditText etPlace = findViewById(R.id.etPlace);
+        EditText etWh = findViewById(R.id.etWhatsapp);
+
 
 
         ImageView imageView = findViewById(R.id.IVaddpicture);
 
-        if (TextUtils.isEmpty(etNumberOfTravelers.getText()) ||TextUtils.isEmpty(etPlace.getText()) ||TextUtils.isEmpty(etInfor.getText()) ||s==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
+        if (TextUtils.isEmpty(etWh.getText())||TextUtils.isEmpty(etNumberOfTravelers.getText()) ||TextUtils.isEmpty(etPlace.getText()) ||TextUtils.isEmpty(etInfor.getText()) ||s==""|| TextUtils.isEmpty(etKilometer.getText()) || TextUtils.isEmpty(etTimee.getText())) {
 
             etInfor.setHint("please fill the filed");
             etNumberOfTravelers.setHint("please fill the filed");
@@ -172,15 +174,23 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             etTimee.setHint("please fill the filed");
             etName.setHint("please fill the filed");
             etPlace.setHint("please fill the filed");
+            etWh.setHint("please fill the filed");
             Toast.makeText(addtripactivity.this, "Please make sure all fields are full", Toast.LENGTH_LONG).show();
             return;
         }
+        if(!etWh.getText().toString().startsWith("https://chat.whatsapp.com/"))
+        {
+            Toast.makeText(addtripactivity.this, "Please make sure the whatsapp code id true", Toast.LENGTH_LONG).show();
+            return;
+        }
+
 
 
 
         String information= etInfor.getText().toString();
         String place= etPlace.getText().toString();
         String name= etName.getText().toString();
+        String what= etWh.getText().toString();
         int km=Integer.valueOf(etKilometer.getText().toString());
         int NumberOfTravelers=Integer.valueOf(etNumberOfTravelers.getText().toString());
         int time=Integer.valueOf(etTimee.getText().toString());
@@ -233,7 +243,11 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         if(!isAfterCurrentYearMonth)
             Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
 */
-        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name, place,  selectedArea,  NumberOfTravelers);
+
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        if(!s.contains(","))
+            s+=", "+currentYear;
+        Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name, place,  selectedArea,  NumberOfTravelers,what);
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         trup.setOwnerEmail(email);
 

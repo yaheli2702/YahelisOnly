@@ -1,9 +1,5 @@
 package com.example.yahelis;
 
-import android.graphics.Bitmap;
-
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
 public class Trip {
@@ -39,6 +35,10 @@ public class Trip {
          participantsNames.add(ownerName);
          return participantsNames;
     }
+    public ArrayList<String> removeParticipantsNames(String ownerName) {
+        participantsNames.remove(ownerName);
+        return participantsNames;
+    }
 
 
     public void setParticipantsNames(ArrayList<String> participantsNames) {
@@ -51,6 +51,10 @@ public class Trip {
     public ArrayList<String> addParticipantsEmails(String email) {
           participantsEmails.add(email);
           return participantsEmails;
+    }
+    public ArrayList<String> removeParticipantsEmails(String email) {
+        participantsEmails.remove(email);
+        return participantsEmails;
     }
 
     public void setParticipantsEmails(ArrayList<String> participantsEmails) {
@@ -68,8 +72,9 @@ public class Trip {
     private String place;
     private String area;
     private int totalTravelers;
+    private String whCode;
 
-    public Trip(String ownerName, String ownerEmail, ArrayList<String> participantsNames, ArrayList<String> participantsEmails, String tripID, String information, String dargatiul, String date, String photo, int km, int time, String name, String place, String area, int totalTravelers) {
+    public Trip(String ownerName, String ownerEmail, ArrayList<String> participantsNames, ArrayList<String> participantsEmails, String tripID, String information, String dargatiul, String date, String photo, int km, int time, String name, String place, String area, int totalTravelers, String whCode) {
         this.ownerName = ownerName;
         this.ownerEmail = ownerEmail;
         this.participantsNames = participantsNames;
@@ -85,6 +90,7 @@ public class Trip {
         this.place = place;
         this.area = area;
         this.totalTravelers = totalTravelers;
+        this.whCode = whCode;
     }
 
     public String getPlace() {
@@ -93,6 +99,13 @@ public class Trip {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+    public String getWhCode() {
+        return whCode;
+    }
+
+    public void setWhCode(String WhCode) {
+        this.whCode = WhCode;
     }
 
     public String getArea() {
@@ -116,7 +129,7 @@ public class Trip {
     }
 
 
-    public Trip(String information, String dargatiul, String date, String photo, int km, int time, String name,String place, String area, int totalTravelers) {
+    public Trip(String information, String dargatiul, String date, String photo, int km, int time, String name,String place, String area, int totalTravelers, String whCode) {
         this.information = information;
         this.dargatiul = dargatiul;
         this.date = date;
@@ -127,6 +140,7 @@ public class Trip {
         this.place = place;
         this.area = area;
         this.totalTravelers = totalTravelers;
+        this.whCode=whCode;
     }
 
 

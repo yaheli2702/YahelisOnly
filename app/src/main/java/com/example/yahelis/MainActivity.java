@@ -77,4 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void forgetpassword(View view) {
+    }
 }

@@ -139,6 +139,25 @@
                 android:backgroundTint="#13EDCD"
                 android:onClick="addmetothetriplist"
                 android:text="אני רוצה להצטרף! צרפו אותי" />
+            <Button
+                android:id="@+id/bWhatsappCode"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#13EDCD"
+                android:onClick="whatsapppeula"
+                android:visibility="invisible"
+                android:text="ווצאפ" />
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="69dp"
+                android:layout_height="42dp"
+                android:onClick="deleteTrip"
+                android:visibility="invisible"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
 
         </LinearLayout>
 

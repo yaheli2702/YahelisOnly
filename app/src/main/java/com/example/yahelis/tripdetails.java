@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,8 @@ public class tripdetails extends AppCompatActivity {
     public TextView tvAreaOfTrip;
     public TextView tvplaceOfTrip;
 
+    private Button addRemoveButton;
+
 
     private ArrayAdapter<String> itemsAdapter;
 
@@ -57,6 +60,7 @@ public class tripdetails extends AppCompatActivity {
 
     private String tripID;
     private Trip t;
+    private ImageView ivDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +95,6 @@ public class tripdetails extends AppCompatActivity {
                     tvplaceOfTrip.setText(tvplaceOfTrip.getText().toString() + t.getPlace());
                     tvAreaOfTrip.setText(tvAreaOfTrip.getText().toString() + t.getArea());
                     tvMaxNumberOfTravelers.setText(tvMaxNumberOfTravelers.getText().toString() + t.getTotalTravelers());
-
                     tvOwnerOfTrip.setText(tvOwnerOfTrip.getText().toString() + t.getOwnerName());
 
                     tvOwnerOfTrip.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +119,12 @@ public class tripdetails extends AppCompatActivity {
                         }
                     });
 
+                    if(t.getOwnerEmail().equals(mAuth.getCurrentUser().getEmail()))
+                    {
+                        ivDelete.setVisibility(View.VISIBLE);
+                    }
+
+
                     ListView lv = findViewById(R.id.lvUsers);
                     lv.setOnTouchListener(new View.OnTouchListener() {
 
@@ -138,6 +147,15 @@ public class tripdetails extends AppCompatActivity {
 
 
                     lv.setAdapter(itemsAdapter);
+
+
+                    ///
+                    if(t.getParticipantsEmails().contains(mAuth.getCurrentUser().getEmail())) {
+                        addRemoveButton.setText("ביטול הרשמה");
+                    }
+
+
+                        ///
 
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -175,15 +193,18 @@ public class tripdetails extends AppCompatActivity {
         ivTripPic = findViewById(R.id.choosepic);
         tvParticipentsOfTrip = findViewById(R.id.tvParticipentsOfTrip);
         tvOwnerOfTrip = findViewById(R.id.tvOwnerOfTrip);
+        addRemoveButton=findViewById(R.id.iWant);
+        ivDelete=findViewById(R.id.ivDelete);
+
 
     }
 
     public void addmetothetriplist(View view) {
-        Button b=findViewById(R.id.iWant);
+        Button bWhat=findViewById(R.id.bWhatsappCode);
         // check I am not currently registeered...
         String myEmail=mAuth.getCurrentUser().getEmail();
         String myName=mAuth.getCurrentUser().getDisplayName();
-        if(b.getText()=="אני רוצה להצטרף! צרפו אותי"){
+        if(addRemoveButton.getText().toString().equals("אני רוצה להצטרף! צרפו אותי")){
             if(!t.getParticipantsEmails().contains(myEmail)){
                 t.addParticipantsNames(myName);
                 t.addParticipantsEmails(myEmail);
@@ -193,7 +214,9 @@ public class tripdetails extends AppCompatActivity {
 
                 // user name...
                 itemsAdapter.notifyDataSetChanged();
-                b.setText("ביטול הרשמה");
+                addRemoveButton.setText("ביטול הרשמה");
+                bWhat.setVisibility(View.VISIBLE);
+
 
             }
             else {
@@ -202,10 +225,32 @@ public class tripdetails extends AppCompatActivity {
 
             }
         }
-        else{
-            //להסיר את הכל
+        else{  // this means unreguster form the trip
+            t.removeParticipantsNames(myName);
+            t.removeParticipantsEmails(myEmail);
+
+            fb.collection("Trips").document(tripID).update("participantsNames",t.getParticipantsNames());
+            fb.collection("Trips").document(tripID).update("participantsEmails",t.getParticipantsEmails());
+
+            // user name...
+            itemsAdapter.notifyDataSetChanged();
+            addRemoveButton.setText("אני רוצה להצטרף! צרפו אותי");
+            bWhat.setVisibility(View.INVISIBLE);
         }
 
+
+    }
+
+    public void whatsapppeula(View view) {
+        String url=t.getWhCode();
+        Intent i= new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+    public void deleteTrip(View view) {
+        fb.collection("Trips").document(tripID).delete();
+        Toast.makeText(tripdetails.this,"trip has been successfully deleted!",Toast.LENGTH_LONG).show();
 
     }
 }

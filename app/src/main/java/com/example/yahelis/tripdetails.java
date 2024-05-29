@@ -122,6 +122,7 @@ public class tripdetails extends AppCompatActivity {
                     if(t.getOwnerEmail().equals(mAuth.getCurrentUser().getEmail()))
                     {
                         ivDelete.setVisibility(View.VISIBLE);
+                        addRemoveButton.setVisibility(View.INVISIBLE);
                     }
 
 
@@ -148,15 +149,9 @@ public class tripdetails extends AppCompatActivity {
 
                     lv.setAdapter(itemsAdapter);
 
-
-                    ///
                     if(t.getParticipantsEmails().contains(mAuth.getCurrentUser().getEmail())) {
                         addRemoveButton.setText("ביטול הרשמה");
                     }
-
-
-                        ///
-
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -169,8 +164,6 @@ public class tripdetails extends AppCompatActivity {
                         }
 
                     });
-                  //  tvParticipentsOfTrip.setText(tvParticipentsOfTrip.getText().toString() + .toString());
-
 
                     storage.getImage(ivTripPic,t.getPhoto());
 

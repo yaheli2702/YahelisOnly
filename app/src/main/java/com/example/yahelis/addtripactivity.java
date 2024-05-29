@@ -47,6 +47,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -105,14 +106,25 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Locale currentLocale = getResources().getConfiguration().locale;
+
+                // Set the locale to English
+                LocaleHelper.setLocale(addtripactivity.this, Locale.ENGLISH);
+
                 materialDatePicker.show(getSupportFragmentManager(), "Tag_picker");
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
                     public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                        dateRangeText.setText(materialDatePicker.getHeaderText());
                         s = materialDatePicker.getHeaderText();
+                        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                        if (!s.contains(","))
+                            s += ", " + currentYear;
+
+                        dateRangeText.setText(s);
                     }
                 });
+                materialDatePicker.addOnDismissListener(dialog -> LocaleHelper.setLocale(addtripactivity.this, currentLocale));
+
             }
         });
 
@@ -137,10 +149,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
                 selectedArea=area[0];
             }
         });
-
-
     }
-
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selectedDifficulty= darga[i];
@@ -233,20 +242,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
             }
         });
         ZoneId z = ZoneId.systemDefault() ;  // Get JVM’s current default time zone.
-      /*  YearMonth currentYearMonth = YearMonth.now( z ) ;
-        String input = dtDate.getMonth() + "/" + dtDate.getYear() ;
-        DateTimeFormatter f = DateTimeFormatter.ofPattern( "MM/uuuu" ) ;
-        YearMonth ym = YearMonth.parse( input , f ) ;
 
-        boolean isAfterCurrentYearMonth = ym.isAfter( currentYearMonth ) ;
-
-        if(!isAfterCurrentYearMonth)
-            Toast.makeText(this,"plese enter a date in the future",Toast.LENGTH_LONG).show();
-*/
-
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        if(!s.contains(","))
-            s+=", "+currentYear;
         Trip trup = new Trip(information,selectedDifficulty,s, photo, km,time, name, place,  selectedArea,  NumberOfTravelers,what);
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         trup.setOwnerEmail(email);
@@ -264,9 +260,6 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
 
             }
         });
-
-
-
     }
 
     private void addTriptoFirestore (Trip trip){
@@ -278,9 +271,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
                         documentReference.update("tripID",documentReference.getId());
                         Log.d("FB SUCCESS", "onSuccess: perfect");
                         Toast.makeText(addtripactivity.this,"trip added",Toast.LENGTH_LONG).show();
-                        //       Intent i = new Intent(LoggingIn.this, MainTraveling.class);
-                   //     startActivity(i);
-                        finish();
+                   //     ();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -291,17 +282,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
                 });
     }
 
-    // Launcher
-
-
-
-
     public void addpicture(View view) {
-
-
-
         mGetContent.launch("image/*");
-
-
     }
 }

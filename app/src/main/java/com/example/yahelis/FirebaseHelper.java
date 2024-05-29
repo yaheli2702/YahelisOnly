@@ -14,6 +14,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.BlockingDeque;
 
@@ -48,23 +49,21 @@ public class FirebaseHelper {
                     if(!isDateInPast(t.getDate())){
                         tripsArr.add(t);
                     }
-
                 }
 
                 fbResult.getData(tripsArr);
-
-
             }
         });
 
     }
-//    private ArrayList<String> months = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+
     public static boolean isDateInPast(String dateString) {
-        String endDateString = dateString.split("–")[1].trim();
-        Log.d("DATE CHECK ", "isDateInPast: "+endDateString);
+
+        String startDateString = dateString.split("–")[0].trim()+", "+dateString.split(",")[1].trim();
+        Log.d("DATE CHECK ", "isDateInPast: "+startDateString);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH);
         try {
-            LocalDate endDate = LocalDate.parse(endDateString, formatter);
+            LocalDate endDate = LocalDate.parse(startDateString, formatter);
             LocalDate today = LocalDate.now();
             return endDate.isBefore(today);
         } catch (DateTimeParseException e) {

@@ -150,9 +150,6 @@ public class profileActivity extends AppCompatActivity {
 
                             if(user.getEmail().equals(mAuth.getCurrentUser().getEmail())){
                                 isSame=true;
-                             //   etNameOfMyProfile.setEnabled(true);
-                         //       etAgeOfMyProfile.setEnabled(true);
-                          //      etBio.setEnabled(false);
                                 ivEdit.setVisibility(View.VISIBLE);
                             }
                             else {
@@ -180,15 +177,6 @@ public class profileActivity extends AppCompatActivity {
             etBio.setVisibility(View.VISIBLE);
             etAgeOfMyProfile.setVisibility(View.VISIBLE);
             etNameOfMyProfile.setVisibility(View.VISIBLE);
-//            Bitmap bitmap = ((BitmapDrawable)ivEdit.getDrawable()).getBitmap();
-//            String photo= UUID.randomUUID().toString();
-//
-//            StorageReference storageRef = firebaseStorage.getReference();
-//            StorageReference imageRef = storageRef.child(photo);
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-//            byte[] data = baos.toByteArray();
-//            UploadTask uploadTask = imageRef.putBytes(data);
         }
     }
 }

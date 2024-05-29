@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,7 +67,6 @@ public class Profil extends Fragment {
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
 
     private DocumentReference docRef = null;
-
     EditText etNameOfMyProfile;
     EditText etAgeOfMyProfile;
     EditText etBio;
@@ -124,9 +124,6 @@ public class Profil extends Fragment {
         String photo = "profilepic"+ whichPicture;
 
         String directory = mAuth.getCurrentUser().getUid();
-
-
-
 
 
         StorageReference storageRef = firebaseStorage.getReference();

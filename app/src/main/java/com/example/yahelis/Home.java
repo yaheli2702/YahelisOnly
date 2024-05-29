@@ -97,10 +97,6 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
 
     }
-    //firebase
-//    private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
-//    private CollectionReference tripsRef =firebaseFirestore.collection("Trips");
-//
    private TripAdapter adapter;
 
 

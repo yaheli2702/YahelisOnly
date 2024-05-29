@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/tripicture"
         android:layout_width="272dp"
-        android:layout_height="119dp"
+        android:layout_height="146dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="17dp"
@@ -21,20 +21,22 @@
 
     <TextView
         android:id="@+id/tvRecDarga"
-        android:layout_width="103dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="102dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="17dp"
         android:background="#67D3FA"
         android:text="דרגה"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
-        app:layout_constraintTop_toBottomOf="@+id/tvEzoring" />
+        tools:layout_editor_absoluteY="71dp" />
 
     <TextView
         android:id="@+id/tvEzoring"
-        android:layout_width="103dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="102dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="#67D3FA"
         android:text="אזור הטיול"
@@ -43,9 +45,9 @@
 
     <TextView
         android:id="@+id/tvDateing"
-        android:layout_width="103dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="102dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="10dp"
         android:background="#67D3FA"
@@ -53,6 +55,7 @@
         android:text="תאריך"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tripicture"
-        app:layout_constraintTop_toBottomOf="@+id/tvRecDarga" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRecDarga"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

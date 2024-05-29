@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,6 +49,7 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
     private String selectedDifficulty;
     private String selectedArea;
     private String selectedMes;
+    private TextView eintiul;
 
     public FindTrip() {
         // Required empty public constructor
@@ -134,54 +136,12 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
                 selectedDifficulty = darga[0];
             }
         });
-
-        Spinner messpin = view.findViewById(R.id.timetiolpinner);
-        ArrayAdapter<String> ccc = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, meses);
-        ccc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        messpin.setAdapter(ccc);
-        messpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedMes = meses[i];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                selectedMes = meses[0];
-            }
-        });
     }
-/*
-    private void getDataFromFirebase() {
-        FirebaseFirestore fb = FirebaseFirestore.getInstance();
-
-        fb.collection("Trips").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot d:queryDocumentSnapshots.getDocuments()) {
-                    tripsArr.add(d.toObject(Trip.class));
-
-                }
-            }
-        });
-
-    }
-
- */
-
     public void search() {
         ArrayList<Trip> filter = new ArrayList<>();
         for (int i=0;i<tripsArr.size();i++)
         {
             Trip t=tripsArr.get(i);
-//            Log.d("search", "search: "+t.getDate());
-//            Log.d("search", t.getArea());
-//            Log.d("search", selectedArea);
-//            Log.d("search", meses[0]);
-//            Log.d("search", t.getDargatiul());
-//            Log.d("search", selectedDifficulty);
-//            Log.d("search", selectedMes);
-
             if((t.getArea().equals(selectedArea)||selectedArea.equals(meses[0]))
                     &&
                     (t.getDargatiul().equals(selectedDifficulty)||selectedDifficulty.equals(meses[0]))
@@ -198,13 +158,15 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
         recyclerView.setLayoutManager(LayoutManager);
 
         adapter = new TripAdapter(filter);
+        eintiul=view.findViewById(R.id.eintiul);
 
         recyclerView.setAdapter(adapter);
-
-
-
-
-
+        if(filter.size()==0)
+        {
+            eintiul.setVisibility(View.VISIBLE);
+        }
+        else
+            eintiul.setVisibility(View.INVISIBLE);
     }
 
     @Override

@@ -33,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, MainTraveling.class);
             startActivity(i);
         }
-
-
-
-
        // mAuth.getCurrentUser() == null  -> never signed UP
 
     }
@@ -76,8 +72,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    public void forgetpassword(View view) {
     }
 }

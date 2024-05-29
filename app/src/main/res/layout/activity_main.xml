@@ -6,20 +6,20 @@
     android:layout_height="match_parent"
     android:background="#C0F8F4"
     tools:context=".MainActivity">
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="267dp"
-        android:layout_height="127dp"
-        android:layout_marginTop="48dp"
-        android:background="#54FDB8"
-        android:fontFamily="serif"
-        android:gravity="center"
-        android:text="Travel Trouble"
-        android:textColor="#1465C6"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="267dp"-->
+<!--        android:layout_height="127dp"-->
+<!--        android:layout_marginTop="48dp"-->
+<!--        android:background="#54FDB8"-->
+<!--        android:fontFamily="serif"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Travel Trouble"-->
+<!--        android:textColor="#1465C6"-->
+<!--        android:textSize="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
         android:id="@+id/password"
@@ -49,7 +49,7 @@
         android:inputType="text"
         android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/traveli"
         android:drawableLeft="@drawable/email_pic"
         android:drawablePadding="8dp"
         android:background="@drawable/edittext_mailpass"/>
@@ -82,17 +82,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup" />
 
-    <TextView
-        android:id="@+id/tvForgetPassword"
-        android:layout_width="92dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="167dp"
-        android:text="שכחתי סיסמא?"
-        android:onClick="forgetpassword"
+
+    <ImageView
+        android:id="@+id/traveli"
+        android:layout_width="225dp"
+        android:layout_height="213dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="93dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/travlelogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

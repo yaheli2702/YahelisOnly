@@ -138,6 +138,7 @@
                 android:layout_marginTop="36dp"
                 android:backgroundTint="#13EDCD"
                 android:onClick="addmetothetriplist"
+                android:visibility="visible"
                 android:text="אני רוצה להצטרף! צרפו אותי" />
             <Button
                 android:id="@+id/bWhatsappCode"

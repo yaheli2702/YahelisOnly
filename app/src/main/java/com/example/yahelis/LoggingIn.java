@@ -91,7 +91,7 @@ public class LoggingIn extends AppCompatActivity {
                                 if(task.isSuccessful())
                                 {
                                     String email = mAuth.getCurrentUser().getEmail();
-                                    User user = new User(username, email, age, phone, iden);
+                                    User user = new User(username, email, age, phone, iden,mAuth.getCurrentUser().getUid());
                                     addUsertoFirestore(user);
                                 }
                             }

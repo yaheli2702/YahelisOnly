@@ -38,7 +38,6 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
 
     String[] darga = {"בחר.י", "קל", "בינוני", "קשה" };
     String[] area = { "בחר.י","צפון", "מרכז", "דרום", "ירושלים" };
-    String[] meses = {"בחר.י", "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר" };
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -48,7 +47,6 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
 
     private String selectedDifficulty;
     private String selectedArea;
-    private String selectedMes;
     private TextView eintiul;
 
     public FindTrip() {
@@ -142,11 +140,9 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
         for (int i=0;i<tripsArr.size();i++)
         {
             Trip t=tripsArr.get(i);
-            if((t.getArea().equals(selectedArea)||selectedArea.equals(meses[0]))
+            if((t.getArea().equals(selectedArea)||selectedArea.equals(area[0]))
                     &&
-                    (t.getDargatiul().equals(selectedDifficulty)||selectedDifficulty.equals(meses[0]))
-                    &&
-                    (t.getDate().equals(selectedMes)||selectedMes.equals(meses[0]))){
+                    (t.getDargatiul().equals(selectedDifficulty)||selectedDifficulty.equals(darga[0]))){
                 filter.add(t);
                 Log.d("search", "working");
 

@@ -87,7 +87,6 @@ public class Profil extends Fragment {
                 // Handle the returned Uri
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), uri);
-                    // לעשות סוויטצ קייס על כל אחד מוויצפיכצר ואס להעלות לפיירבייס
                     if (whichPicture==0)
                     {
                         ivProfile.setImageBitmap(bitmap);
@@ -201,6 +200,8 @@ public class Profil extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         ivProfile = view.findViewById(R.id.ivProfile2);
         ivFirst = view.findViewById(R.id.ivFirst2);
         ivSecond = view.findViewById(R.id.ivSecond2);
@@ -216,6 +217,10 @@ public class Profil extends Fragment {
                 editUserDetails(view);
             }
         });
+
+
+
+
         getUserDetails();
 
     }

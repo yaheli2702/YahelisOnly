@@ -9,6 +9,8 @@ public class User {
     private int iden;
     private String info;
 
+    private String uid;
+
     public User(String username, String email, int age, int phone, int iden) {
         this.username = username;
         this.email = email;
@@ -16,7 +18,37 @@ public class User {
         this.phone = phone;
         this.iden = iden;
         this.info="";
+        this.uid="";
     }
+
+    public User(String username, String email, int age, int phone, int iden, String uid) {
+        this.username = username;
+        this.email = email;
+        this.age = age;
+        this.phone = phone;
+        this.iden = iden;
+        this.uid = uid;
+    }
+
+    public User(String username, String email, int age, int phone, int iden, String info, String uid) {
+        this.username = username;
+        this.email = email;
+        this.age = age;
+        this.phone = phone;
+        this.iden = iden;
+        this.info = info;
+        this.uid = uid;
+    }
+
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public String getInfo(){return info;}
 
     public void setAge(int age) {

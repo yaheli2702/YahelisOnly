@@ -42,9 +42,11 @@ public class profileActivity extends AppCompatActivity {
     EditText etNameOfMyProfile;
     EditText etAgeOfMyProfile;
     EditText etBio;
-    ImageView ivEdit;
     ImageView ivProfile;
     Bitmap bitmap;
+    ImageView ivFirst;
+    ImageView ivSecond;
+    ImageView ivThird;
 
     private int whichPicture = 0;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -53,9 +55,18 @@ public class profileActivity extends AppCompatActivity {
                 // just an example of extracting an image
                 // Handle the returned Uri
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                    ivProfile = findViewById(R.id.ivProfile);
-                    ivProfile.setImageBitmap(bitmap);
+                    bitmap = MediaStore.Images.Media.getBitmap(profileActivity.this.getContentResolver(), uri);
+                    if (whichPicture==0)
+                    {
+                        ivProfile.setImageBitmap(bitmap);
+                    } else if (whichPicture==1) {
+                        ivFirst.setImageBitmap(bitmap);
+                    } else if (whichPicture==2) {
+                        ivSecond.setImageBitmap(bitmap);
+                    }else if (whichPicture==3) {
+                        ivThird.setImageBitmap(bitmap);
+                    }
+
 
                     uploadImageToStroage(bitmap);
 
@@ -65,6 +76,14 @@ public class profileActivity extends AppCompatActivity {
             });
 
     private void uploadImageToStroage(Bitmap bitmap) {
+        if(whichPicture==0)
+            bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
+        else if (whichPicture==1)
+            bitmap = ((BitmapDrawable)ivFirst.getDrawable()).getBitmap();
+        else if (whichPicture==2)
+            bitmap = ((BitmapDrawable)ivSecond.getDrawable()).getBitmap();
+        else if (whichPicture==3)
+            bitmap = ((BitmapDrawable)ivThird.getDrawable()).getBitmap();
         bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
 
         // choose name by                  whichPicture  value
@@ -116,6 +135,9 @@ public class profileActivity extends AppCompatActivity {
 
         ivProfile = findViewById(R.id.ivProfile);
 
+        ivFirst = findViewById(R.id.ivFirst);
+        ivSecond = findViewById(R.id.ivSecond);
+        ivThird = findViewById(R.id.ivThird);
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,29 +162,36 @@ public class profileActivity extends AppCompatActivity {
                              etNameOfMyProfile = findViewById(R.id.etNameOfMyProfile);
                              etAgeOfMyProfile = findViewById(R.id.etAgeOfMyProfile);
                              etBio = findViewById(R.id.etBio);
-                             ivEdit=findViewById(R.id.ivEdit);
                             if(task.getResult().isEmpty())
                                 return;
 
                            user =  task.getResult().getDocuments().get(0).toObject(User.class);
                             etNameOfMyProfile.setText(user.getUsername());
                             etAgeOfMyProfile.setText(""+user.getAge());
+                            String photo = "profilepic";
 
-                            if(user.getEmail().equals(mAuth.getCurrentUser().getEmail())){
-                                isSame=true;
-                                ivEdit.setVisibility(View.VISIBLE);
-                            }
-                            else {
-                                etNameOfMyProfile.setFocusable(false);
-                                etNameOfMyProfile.setClickable(false);
-                                etNameOfMyProfile.setCursorVisible(false);
-                                etAgeOfMyProfile.setFocusable(false);
-                                etAgeOfMyProfile.setClickable(false);
-                                etAgeOfMyProfile.setCursorVisible(false);
-                                etBio.setFocusable(false);
-                                etBio.setClickable(false);
-                                etBio.setCursorVisible(false);
-                            }
+                            String directory = user.getUid();
+
+                            String url = directory + "/" + photo + 0;
+                            MyFirebaseStorage storage = new MyFirebaseStorage();
+                            storage.getImage(ivProfile,url);
+
+                            url = directory + "/" + photo + 1;
+                            storage.getImage(ivFirst,url);
+                            url = directory + "/" + photo + 2;
+
+                            storage.getImage(ivSecond,url);
+                            url = directory + "/" + photo + 3;
+                            storage.getImage(ivThird,url);
+                            etNameOfMyProfile.setFocusable(false);
+                            etNameOfMyProfile.setClickable(false);
+                            etNameOfMyProfile.setCursorVisible(false);
+                            etAgeOfMyProfile.setFocusable(false);
+                            etAgeOfMyProfile.setClickable(false);
+                            etAgeOfMyProfile.setCursorVisible(false);
+                            etBio.setFocusable(false);
+                            etBio.setClickable(false);
+                            etBio.setCursorVisible(false);
 
                         }
                     }
@@ -170,13 +199,5 @@ public class profileActivity extends AppCompatActivity {
 
 
 
-    }
-
-    public void editUserDetails(View view) {
-        if(isSame){
-            etBio.setVisibility(View.VISIBLE);
-            etAgeOfMyProfile.setVisibility(View.VISIBLE);
-            etNameOfMyProfile.setVisibility(View.VISIBLE);
-        }
     }
 }

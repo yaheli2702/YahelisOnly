@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -271,6 +272,10 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
                         documentReference.update("tripID",documentReference.getId());
                         Log.d("FB SUCCESS", "onSuccess: perfect");
                         Toast.makeText(addtripactivity.this,"trip added",Toast.LENGTH_LONG).show();
+
+                        Intent intent=new Intent(addtripactivity.this, MainTraveling.class);
+                        intent.putExtra("showHome","Home");
+                        startActivity(intent);
                    //     ();
                     }
                 })

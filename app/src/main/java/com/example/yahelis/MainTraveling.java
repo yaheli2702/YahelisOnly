@@ -40,6 +40,13 @@ public class MainTraveling extends FragmentActivity {
     ViewPager2 viewPager;
 
     private boolean showProfile;
+    private String showHome;
+
+    public String getEmail() {
+        return email;
+    }
+
+    private String email="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +55,8 @@ public class MainTraveling extends FragmentActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         showProfile =  getIntent().getBooleanExtra("showProfile",false);
+
+        showHome = getIntent().getStringExtra("showHome");
 
         initViews();
 
@@ -68,8 +77,16 @@ public class MainTraveling extends FragmentActivity {
         ).attach();
 
 
-        if(showProfile)
+        if(showProfile) {
             viewPager.setCurrentItem(3);
+        }
+
+        if(showHome!=null)
+            viewPager.setCurrentItem(0);
+
+
+
+
     }
 
 }

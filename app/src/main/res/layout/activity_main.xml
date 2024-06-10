@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     android:background="#C0F8F4"
     tools:context=".MainActivity">
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="267dp"-->
-<!--        android:layout_height="127dp"-->
-<!--        android:layout_marginTop="48dp"-->
-<!--        android:background="#54FDB8"-->
-<!--        android:fontFamily="serif"-->
-<!--        android:gravity="center"-->
-<!--        android:text="Travel Trouble"-->
-<!--        android:textColor="#1465C6"-->
-<!--        android:textSize="20dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
         android:id="@+id/password"

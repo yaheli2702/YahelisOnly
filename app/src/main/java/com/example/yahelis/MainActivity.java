@@ -50,27 +50,27 @@ public class MainActivity extends AppCompatActivity {
         EditText etPassword=findViewById(R.id.password);
         String mail=etMail.getText().toString();
         String password=etPassword.getText().toString();
+        if(mail.equals("")||password.equals(""))
+            Toast.makeText(MainActivity.this,"please make sure you fill all the fields",Toast.LENGTH_LONG).show();
+        else
+        {
+            // try to login, if we fail -> this means user does not exist
+            mAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    // if success - there is such a user, maybe swtiched phones or re installed
+                    if(task.isSuccessful())
+                    {
+                        Intent i = new Intent(MainActivity.this, MainTraveling.class);
+                        startActivity(i);
 
+                    }
+                    else
+                        Toast.makeText(MainActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
 
-        // try to login, if we fail -> thjis means user does not exist
-
-        mAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                // if success - there is such a user, maybe swtiched phones or re installed
-                if(task.isSuccessful())
-                {
-                    Intent i = new Intent(MainActivity.this, MainTraveling.class);
-                    startActivity(i);
 
                 }
-                else
-                    Toast.makeText(MainActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-
-
-            }
-        });
-
-
+            });
+        }
     }
 }

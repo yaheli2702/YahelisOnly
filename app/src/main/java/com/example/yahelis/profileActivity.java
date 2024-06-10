@@ -168,6 +168,8 @@ public class profileActivity extends AppCompatActivity {
                            user =  task.getResult().getDocuments().get(0).toObject(User.class);
                             etNameOfMyProfile.setText(user.getUsername());
                             etAgeOfMyProfile.setText(""+user.getAge());
+                            etBio.setText(""+user.getInfo());
+
                             String photo = "profilepic";
 
                             String directory = user.getUid();
@@ -196,8 +198,5 @@ public class profileActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
     }
 }

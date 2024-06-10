@@ -83,10 +83,6 @@ public class MainTraveling extends FragmentActivity {
 
         if(showHome!=null)
             viewPager.setCurrentItem(0);
-
-
-
-
     }
 
 }

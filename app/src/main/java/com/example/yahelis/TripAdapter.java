@@ -85,19 +85,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
                 public void onClick(View view) {
 
                     Log.d("Recycler click", "onClick: " + tvDarga.getText().toString());
-                    Toast.makeText(itemView.getContext(), "hi", Toast.LENGTH_LONG).show();
-
                     Intent intent = new Intent(itemView.getContext(), tripdetails.class);
 
                     intent.putExtra("tripID", tripID);
                     itemView.getContext().startActivity(intent);
                 }
             });
-
-
         }
     }
-
-
-
     }

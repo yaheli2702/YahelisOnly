@@ -37,8 +37,6 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
     View fragView=null;
 
-    ArrayList<Trip> trips = new ArrayList<>();
-
     public Home() {
         // Required empty public constructor
     }
@@ -68,10 +66,10 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        for (int i=0; i<25;i++){
-            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+"","place","צפון",10,"fkfkfkkfkfkf"));
-        }
+//
+//        for (int i=0; i<25;i++){
+//            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+"","place","צפון",10,"fkfkfkkfkfkf"));
+//        }
 
     }
 
@@ -88,14 +86,8 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         // ONLY HERE THE FRAGMENT IS ALREADY CREATED!
         setupRecyclerView();
-
-
-
-
     }
    private TripAdapter adapter;
 
@@ -104,8 +96,6 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
         FirebaseHelper fbHelper = new FirebaseHelper(this);
         fbHelper.getDataFromFirebase();
-
-
     }
 
 
@@ -127,8 +117,6 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
         RecyclerView recyclerView = fragView.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager LayoutManager= new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(LayoutManager);
-
-
 
         adapter = new TripAdapter(arr);
 

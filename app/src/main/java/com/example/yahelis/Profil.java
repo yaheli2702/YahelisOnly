@@ -217,10 +217,6 @@ public class Profil extends Fragment {
                 editUserDetails(view);
             }
         });
-
-
-
-
         getUserDetails();
 
     }

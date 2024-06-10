@@ -199,8 +199,6 @@ public class tripdetails extends AppCompatActivity {
         tvOwnerOfTrip = findViewById(R.id.tvOwnerOfTrip);
         addRemoveButton=findViewById(R.id.iWant);
         ivDelete=findViewById(R.id.ivDelete);
-
-
     }
 
     public void addmetothetriplist(View view) {
@@ -221,11 +219,6 @@ public class tripdetails extends AppCompatActivity {
                 addRemoveButton.setText("ביטול הרשמה");
                 bWhat.setVisibility(View.VISIBLE);
 
-
-            }
-            else {
-                Log.d("lv click ", "you already exist");
-                Toast.makeText(tripdetails.this,"you already exist",Toast.LENGTH_LONG).show();
 
             }
         }

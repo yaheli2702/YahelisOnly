@@ -66,10 +66,6 @@ public class LoggingIn extends AppCompatActivity {
             Toast.makeText(this, "your id must have 9 numbers", Toast.LENGTH_LONG).show();
             return;
         }
-
-
-
-
         mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -96,21 +92,13 @@ public class LoggingIn extends AppCompatActivity {
                                 }
                             }
                         });
-
-
                     }
-
-
                 }
                 else
                 {
                     Toast.makeText(LoggingIn.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-
                 }
-
             }
-
-
         });
     }
 

@@ -75,6 +75,7 @@ public class tripdetails extends AppCompatActivity {
         setUIElements();
 
         getDetailsFromFB();
+
     }
 
     private void getDetailsFromFB() {
@@ -85,7 +86,11 @@ public class tripdetails extends AppCompatActivity {
                 if(documentSnapshot.exists())
                 {
                      t = documentSnapshot.toObject(Trip.class);
-
+                    int totali=t.getTotalTravelers()-t.getParticipantsEmails().size();
+                    if(totali<=0){
+                        totali=0;
+                        addRemoveButton.setVisibility(View.INVISIBLE);
+                    }
                     tvDetailOfTrip.setText(tvDetailOfTrip.getText().toString() + t.getInformation());
                     tvDarga.setText(tvDarga.getText().toString() + t.getDargatiul());
                     tvDateOfTrip.setText(tvDateOfTrip.getText().toString() + t.getDate());
@@ -94,7 +99,7 @@ public class tripdetails extends AppCompatActivity {
                     tvTimeing.setText(tvTimeing.getText().toString() + t.getTime());
                     tvplaceOfTrip.setText(tvplaceOfTrip.getText().toString() + t.getPlace());
                     tvAreaOfTrip.setText(tvAreaOfTrip.getText().toString() + t.getArea());
-                    tvMaxNumberOfTravelers.setText(tvMaxNumberOfTravelers.getText().toString() + t.getTotalTravelers());
+                    tvMaxNumberOfTravelers.setText(tvMaxNumberOfTravelers.getText().toString() +totali);
                     tvOwnerOfTrip.setText(tvOwnerOfTrip.getText().toString() + t.getOwnerName());
 
                     tvOwnerOfTrip.setOnClickListener(new View.OnClickListener() {

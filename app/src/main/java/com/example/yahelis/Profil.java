@@ -348,7 +348,11 @@ public class Profil extends Fragment {
             tvSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   Toast.makeText(getActivity(),"saved",Toast.LENGTH_LONG).show();
+                    String age = etAgeOfMyProfile.getText().toString();
+                    if(Integer.valueOf(age)>25||Integer.valueOf(age)<16){
+                        Toast.makeText(getActivity(), "your age must be between 16-25", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     tvSave.setVisibility(View.INVISIBLE);
                     setFalse();
                     saveUsertoFB();
@@ -374,5 +378,6 @@ public class Profil extends Fragment {
         String name = etNameOfMyProfile.getText().toString();
         user.setUsername(name);
         docRef.set(user);
+        Toast.makeText(getActivity(),"saved",Toast.LENGTH_LONG).show();
     }
 }

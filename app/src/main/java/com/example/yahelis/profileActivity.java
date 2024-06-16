@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -198,5 +199,11 @@ public class profileActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void seeComents(View view) {
+        Intent intent = new Intent(profileActivity.this, reviewsActivity.class);
+        intent.putExtra("UserReviewsEmail", user.getEmail());
+        startActivity(intent);
     }
 }

@@ -58,8 +58,12 @@ public class LoggingIn extends AppCompatActivity {
         }
         String mail = etMail.getText().toString();
         String password = etPassword.getText().toString();
+        int age=Integer.valueOf(etAge.getText().toString());
 
-
+        if(age<16||age>25){
+            Toast.makeText(this, "your age must be between 16-25", Toast.LENGTH_LONG).show();
+            return;
+        }
         String iden = etIden.getText().toString();
         if(iden.length() !=9)
         {

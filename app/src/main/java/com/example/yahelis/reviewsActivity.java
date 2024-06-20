@@ -56,7 +56,7 @@ public class reviewsActivity extends AppCompatActivity {
     }
 
     private void displayListView(String mailOf) {
-        fb.collection("comments").whereEqualTo("OtherUserName",mailOf).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        fb.collection("comments").whereEqualTo("otherUserName",mailOf).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 ArrayList<comments> commentsArr = new ArrayList<>();
@@ -68,9 +68,18 @@ public class reviewsActivity extends AppCompatActivity {
                 }
 
 
-                final ArrayAdapter<String> adapter = new ArrayAdapter<String>((Context) reviewsActivity.this,
-                        android.R.layout.simple_list_item_1, android.R.id.text1, commentsArr.toArray());
-                listView.setAdapter(adapter);
+                if(commentsArr.size()>0) {
+
+                    String[] strings = new String[commentsArr.size()];
+                    for (int i = 0; i < strings.length; i++) {
+                        strings[i] = commentsArr.get(i).toString();
+                    }
+
+
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>((Context) reviewsActivity.this,
+                            android.R.layout.simple_list_item_1, strings);
+                    listView.setAdapter(adapter);
+                }
 
 
             }

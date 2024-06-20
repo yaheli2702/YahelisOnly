@@ -37,4 +37,11 @@ public class comments {
     public void setComment(String comment) {
         Comment = comment;
     }
+
+
+    public String toString()
+    {
+
+        return ThisUserName + " : " + Comment;
+    }
 }

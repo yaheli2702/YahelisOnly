@@ -22,7 +22,7 @@
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:inputType="text"
-        android:text="write comments"
+        android:hint="write comments"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listView" />
 

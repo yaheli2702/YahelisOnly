@@ -1,5 +1,6 @@
 package com.example.yahelis;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -379,5 +380,12 @@ public class Profil extends Fragment {
         user.setUsername(name);
         docRef.set(user);
         Toast.makeText(getActivity(),"saved",Toast.LENGTH_LONG).show();
+    }
+
+    public void sihnOut(View view) {
+        mAuth.signOut();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+
     }
 }

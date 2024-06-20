@@ -12,16 +12,17 @@
         android:layout_width="261dp"
         android:layout_height="50dp"
         android:layout_marginStart="72dp"
-        android:ems="10"
-        android:hint="סיסמא"
-        android:gravity="center"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edittext_mailpass"
         android:drawableLeft="@drawable/lock_pic"
         android:drawablePadding="8dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="סיסמא"
+        android:inputType="textPassword"
         android:padding="8dp"
-        android:background="@drawable/edittext_mailpass"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
         android:id="@+id/email"
@@ -78,5 +79,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/travlelogo" />
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="8dp"
+        android:text="forgot password?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

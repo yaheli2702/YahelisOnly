@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,21 +27,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-
         // already signed in
 
-        if(mAuth.getCurrentUser() != null)
+        if(mAuth.getCurrentUser() != null )
         {
             Intent i = new Intent(this, MainTraveling.class);
             startActivity(i);
         }
        // mAuth.getCurrentUser() == null  -> never signed UP
-
+        TextView tvForgotPassword=findViewById(R.id.tvForgotPassword);
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("MainActivity", "Forgot Password clicked");
+                    Intent intent=new Intent(MainActivity.this, ForgotPasswordActivity.class);
+                    startActivity(intent);
+            }
+        });
     }
 
     public void signUp(View view) {
-
-
         Intent intent=new Intent(this, LoggingIn.class);
         startActivity(intent);
     }

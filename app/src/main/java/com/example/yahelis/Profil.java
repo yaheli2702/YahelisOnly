@@ -201,7 +201,13 @@ public class Profil extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Button signOutButton = view.findViewById(R.id.bsignout);
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
 
         ivProfile = view.findViewById(R.id.ivProfile2);
         ivFirst = view.findViewById(R.id.ivFirst2);
@@ -382,10 +388,10 @@ public class Profil extends Fragment {
         Toast.makeText(getActivity(),"saved",Toast.LENGTH_LONG).show();
     }
 
-    public void sihnOut(View view) {
+    public void signOut() {
         mAuth.signOut();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
-
+        getActivity().finish();
     }
 }

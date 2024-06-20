@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     //Declaration
-    Button btnReset, btnBack;
+    Button btnReset;
     EditText edtEmail;
     ProgressBar progressBar;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -49,13 +49,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
 
-        //Back Button Code
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+
 
     }
 

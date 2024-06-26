@@ -34,7 +34,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 public class profileActivity extends AppCompatActivity {
-
+    //מטרת המחלקה היא להציג את הפרטים של כל משתמש באתר (שם, גיל, מידע כללי ותמונות).
     private User user;
     private boolean isSame=false;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -52,7 +52,7 @@ public class profileActivity extends AppCompatActivity {
     private int whichPicture = 0;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
-
+                //מטרת התכונה היא לצורך פתיחת התמונות בגלריה, בחירה והחזרה כקישור.
                 // just an example of extracting an image
                 // Handle the returned Uri
                 try {
@@ -77,6 +77,7 @@ public class profileActivity extends AppCompatActivity {
             });
 
     private void uploadImageToStroage(Bitmap bitmap) {
+        //מטרת הפעולה היא להעלות את התמונה שנבחרה לפיירבייס סטורג' ולעדכן את התמונה המתאימה.
         if(whichPicture==0)
             bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
         else if (whichPicture==1)
@@ -95,9 +96,6 @@ public class profileActivity extends AppCompatActivity {
         String photo = "profilepic"+ whichPicture;
 
         String directory = mAuth.getCurrentUser().getUid();
-
-
-
         StorageReference storageRef = firebaseStorage.getReference();
         StorageReference imageRef = storageRef.child(directory +"/" + photo);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -129,6 +127,7 @@ public class profileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את הכל ולאפשר למשתמש לערוך את פרטיו.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
@@ -147,11 +146,6 @@ public class profileActivity extends AppCompatActivity {
                 mGetContent.launch("image/*");
             }
         });
-
-
-//        ivProfile.setImageDrawable(klnnnnn);
-
-
         FirebaseFirestore fb=FirebaseFirestore.getInstance();
         fb.collection("Users")
                 .whereEqualTo("email", mail)
@@ -202,6 +196,7 @@ public class profileActivity extends AppCompatActivity {
     }
 
     public void seeComents(View view) {
+        //מטרת הפעולה היא להעביר למסך התגובות ברגע שלוחצים על הכפתור
         Intent intent = new Intent(profileActivity.this, reviewsActivity.class);
         intent.putExtra("UserReviewsEmail", user.getEmail());
         startActivity(intent);

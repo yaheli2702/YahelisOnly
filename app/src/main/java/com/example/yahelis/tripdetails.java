@@ -31,6 +31,9 @@ import org.checkerframework.common.subtyping.qual.Bottom;
 import java.util.List;
 
 public class tripdetails extends AppCompatActivity {
+    //מטרת המחלקה היא להציג פרטים מדויקים של טיול ספציפי.
+    // במחלקה זו המשתמש יכול למחוק את הטיול (אם הוא המנהל),
+    // להצטרף לטיול ולהצטרף לקבוצת ווצאפ של הטיול.
     MyFirebaseStorage storage = new MyFirebaseStorage();
     public TextView tvDarga;
     public TextView tvNameing;
@@ -64,22 +67,20 @@ public class tripdetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא להתחיל את הכל והיא מזמנת פעולות שונות שעוזרות לממש את מטרת המחלקה.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tripdetails);
 
         tripID=getIntent().getStringExtra("tripID");
 
-        Log.d("tripdetails ", "onCreate: " + tripID);
-
+       // Log.d("tripdetails ", "onCreate: " + tripID);
 
         setUIElements();
-
         getDetailsFromFB();
-
     }
 
     private void getDetailsFromFB() {
-
+        //מטרת הפעולה היא להביא את פרטי הטיול מהפיירבייס ולעדכן את כל התכונות תצוגה בהתאם.
         fb.collection("Trips").document(tripID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -150,8 +151,6 @@ public class tripdetails extends AppCompatActivity {
                     });
                      itemsAdapter =
                             new ArrayAdapter<String>(tripdetails.this, android.R.layout.simple_list_item_1, t.getParticipantsNames());
-
-
                     lv.setAdapter(itemsAdapter);
 
                     if(t.getParticipantsEmails().contains(mAuth.getCurrentUser().getEmail())) {
@@ -178,11 +177,8 @@ public class tripdetails extends AppCompatActivity {
 
                             // i stand for username and also email
                         }
-
                     });
-
                     storage.getImage(ivTripPic,t.getPhoto());
-
                 }
             }
         });
@@ -190,6 +186,7 @@ public class tripdetails extends AppCompatActivity {
     }
 
     private void setUIElements() {
+        //מטרת הפעולה היא לאתחל את כל תכונות התצוגה בהתאם.
         tvDarga = findViewById(R.id.tvDargaOfTrip);
         tvDetailOfTrip = findViewById(R.id.tvDetailOfTrip);
         tvDateOfTrip = findViewById(R.id.tvDateOfTrip);
@@ -207,6 +204,7 @@ public class tripdetails extends AppCompatActivity {
     }
 
     public void addmetothetriplist(View view) {
+        //מטרת הפעולה היא להוסיף את המשתמש לטיול אם הוא לא רשום או להסיר אותו אם הוא כן רשום.
         Button bWhat=findViewById(R.id.bWhatsappCode);
         // check I am not currently registeered...
         String myEmail=mAuth.getCurrentUser().getEmail();
@@ -239,11 +237,9 @@ public class tripdetails extends AppCompatActivity {
             addRemoveButton.setText("אני רוצה להצטרף! צרפו אותי");
             bWhat.setVisibility(View.INVISIBLE);
         }
-
-
     }
-
     public void whatsapppeula(View view) {
+        //מטרת הפעולה היא לפתוח את הקישור לקבוצת הווצאפ של הטיול.
         String url=t.getWhCode();
         Intent i= new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
@@ -251,6 +247,7 @@ public class tripdetails extends AppCompatActivity {
     }
 
     public void deleteTrip(View view) {
+        //מטרת הפעולה היא למחוק את הטיול מהפיירבייס.
         fb.collection("Trips").document(tripID).delete();
         Toast.makeText(tripdetails.this,"trip has been successfully deleted!",Toast.LENGTH_LONG).show();
 

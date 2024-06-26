@@ -13,11 +13,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class MyFirebaseStorage {
+    //מטרת המחלקה היא לעשות את כל הדברים שקשורים להעלאת תמונות ולהורדת תמונות.
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     public void getImage(ImageView iv,String url)
     {
-
+        //מטרת הפעולה היא להוריד תמונה לפי קישור
+        // נתון מהפיירבייס סטורג' ולהציג אותה ברכיב התמונה הנתון.
         StorageReference imageRef = storage.getReference().child(url);
         imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

@@ -17,20 +17,21 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import java.util.ArrayList;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
-
+    //מטרת המחלקה היא לשמור את כל הריסייקל ויו.
+    // מחלקה זו היא זו שמאפשרת להשתמש בריסייקל ויו
+    // והיא מתאמת בינו לבין המקום האחר שבו אנו רוצים שהריסייקל ויו יהיה.
     private ArrayList<Trip> trips;
     MyFirebaseStorage storage = new MyFirebaseStorage();
-
-
-
     public TripAdapter(ArrayList<Trip> tripArray)
     {
+        //מטרת הפעולה היא להיות בנאי,
+        // הפעולה מקבלת רשימת טיולים ומעדכנת את תכונת רשימת הטיולים בהתאם.
         this.trips = tripArray;
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //מטרת הפעולה היא לייצר את הויו הולדר החדש.
         // take the row xml file -> create object and make it displayable
 
         LayoutInflater inflater =LayoutInflater.from(parent.getContext());
@@ -42,7 +43,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TripAdapter.ViewHolder holder, int position) {
-
+        //מטרת הפעולה היא לחבר בין נתוני הטיול לבין פריטי התצוגה.
+        // היא שמה כל אחד מהם במיקום הנכון בריסייקל ויו.
             Trip model = trips.get(position);
 
         holder.tvDarga.setText(model.getDargatiul());
@@ -56,13 +58,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        //מטרת הפעולה להחזיר את מספר הטיולים ברשימה.
         return trips.size();
     }
 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        //מטרת המחלקה היא לנהל את התצוגה של הריסייקל ויו.
         public final TextView tvDarga;
         public final TextView tvEzoring;
         public final TextView tvDateing;
@@ -72,6 +75,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         public String tripID;
 
         public ViewHolder(@NonNull View itemView) {
+            //מטרת הפעולה לאתחל את התצוגות.
             super(itemView);
 
             tvDarga = itemView.findViewById(R.id.tvRecDarga);
@@ -83,7 +87,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    //מטרת הפעולה לקבוע לחיצה ולהעביר ברגע שלוחצים למסך חדש עם פרטי הטיול.
                     Log.d("Recycler click", "onClick: " + tvDarga.getText().toString());
                     Intent intent = new Intent(itemView.getContext(), tripdetails.class);
 

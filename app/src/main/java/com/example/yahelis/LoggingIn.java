@@ -23,21 +23,29 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoggingIn extends AppCompatActivity {
+    //מטרת המחלקה הזו היא להיות אחראית על רשימת משתמש חדש לאפליקציה.
+    // המחלקה שומרת המון נתונים על המשתמש ונותנת לו להתחבר לאפליקציה (ולהשתמש בסיסמא בעתיד).
 
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את הפעילות.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logging_in);
         getSupportActionBar().hide();
     }
 
     public void back(View view) {
+        //מטרת הפעולה הזו היא להחזיר את המשתמש לדף הקודם (Main Activity(,
+        // ברגע שהוא לוחץ על כפתור "חזרה".
         Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     public void signup(View view) {
+        //מטרת פעולה זו היא לרשום משתמש חדש.
+        // אם הכל מלא ותקין, הפעולה רושמת את המשתמש בפיירבייס
+        // ומעדכנת את הפרופיל שלו ומוסיפה את הפעולה לפיירסטור.
 
         CheckBox checkBox = findViewById(R.id.checkBox);
         if (!checkBox.isChecked()) {
@@ -107,6 +115,7 @@ public class LoggingIn extends AppCompatActivity {
     }
 
             private void addUsertoFirestore (User user){
+            //מטרת הפעולה הזו היא להוסיף את פרטי המשתמש לפיירסטור.
                 FirebaseFirestore fb = FirebaseFirestore.getInstance();
                 fb.collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

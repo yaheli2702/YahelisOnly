@@ -36,6 +36,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class MainTraveling extends FragmentActivity {
+    //מטרת המחלקה היא להציג את כל הפרגמנטים.
+    // המשתמש יכול לעבור בין דפים שונים כמו דף הבית, חיפוש טיולים, הוספת טיול ודף פרופיל.
 
     ViewPager2 viewPager;
 
@@ -49,6 +51,7 @@ public class MainTraveling extends FragmentActivity {
     private String email="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את הפעילות.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_traveling);
 
@@ -63,6 +66,7 @@ public class MainTraveling extends FragmentActivity {
 
     }
     private void initViews() {
+        //מטרת הפעולה היא לאתחל את רכיבי הפרגמנט.
         viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 

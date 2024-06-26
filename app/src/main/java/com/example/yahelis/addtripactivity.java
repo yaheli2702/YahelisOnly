@@ -57,6 +57,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class addtripactivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    //מטרת המחלקה היא ליצור טיול חדש, על ידי הזנת כל פרטי הטיול ובסוף הפרטים מועלים לפיירבייס.
     String[] darga = { "קל", "בינוני", "קשה"};
     String[] area={ "צפון", "מרכז",  "דרום", "ירושלים"};
     private FirebaseStorage firebaseStorage= FirebaseStorage.getInstance();
@@ -66,6 +67,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
 
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
+        //מטרת התכונה היא לצורך פתיחת התמונות בגלריה, בחירה והחזרה כקישור. שימוש באקטיבי פור ריסלט החדש
 
                 // just an example of extracting an image
                 // Handle the returned Uri
@@ -83,6 +85,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     private String selectedArea;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את כל הרכיבים ולחבר בין הספינרים למערכים המתאימים.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtripactivity);
         dateRangeText=findViewById(R.id.changeDate);
@@ -142,28 +145,35 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
         areaspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //מטרת הפעולה היא לעדכן את המשתנה "אזור נבחר" בהתאם למה שהיא קיבלה.
                 selectedArea=area[i];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                //מטרת הפעולה היא לשים ערך ברירת מחדל במקרה שלא נבחר שום ערך.
                 selectedArea=area[0];
             }
         });
     }
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //מטרת הפעולה היא לעדכן את המשתנה "דרגת קושי נבחרת" בהתאם למה שהיא קיבלה.
         selectedDifficulty= darga[i];
         Log.d("spiiner darga", "onItemSelected: " + selectedDifficulty);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+        //מטרת הפעולה היא לשים ערך ברירת מחדל במקרה שלא נבחר שום ערך.
         selectedDifficulty = darga[0];
     }
 
     public void readDataAndCreateTrip(View view)
     {
+        //מטרת הפעולה היא בסופו של דבר להעלות את פרטי הטיול המלאים לפיירבייס ולשמור אותם שם.
+        // היא בודקת בתוכה אם כל השדות מלאים, מעלה את התמונה שנבחרה לסטורג' בפיירבייס
+        // ומעדכנת את פרטי הטיול בפיירבייס.
         EditText etInfor = findViewById(R.id.editTextTextMultiLine);
         EditText etKilometer = findViewById(R.id.kilometer);
         EditText etTimee = findViewById(R.id.timee);
@@ -264,6 +274,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void addTriptoFirestore (Trip trip){
+        //מטרת הפעולה היא להעלות את הטיול לפיירסטור בפיירבייס.
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
         fb.collection("Trips").add(trip).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -288,6 +299,7 @@ public class addtripactivity extends AppCompatActivity implements AdapterView.On
     }
 
     public void addpicture(View view) {
+        //מטרת הפעולה היא לאפשר למשתמש לבחור תמונה מהגלריה.
         mGetContent.launch("image/*");
     }
 }

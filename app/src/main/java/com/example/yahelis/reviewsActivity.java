@@ -20,6 +20,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class reviewsActivity extends AppCompatActivity {
+    // מטרת המחלקה היא לאפשר למשתמשים להוסיף תגובות למשתמשים אחרים.
+    //להציג את התגובות שנכתבו על משתמש מסוים.
 
     private String mailOf;
 
@@ -30,6 +32,7 @@ public class reviewsActivity extends AppCompatActivity {
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את הכל.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
         mailOf=getIntent().getStringExtra("UserReviewsEmail");
@@ -39,6 +42,7 @@ public class reviewsActivity extends AppCompatActivity {
         listView=findViewById(R.id.listView);
 
         bAddCom.setOnClickListener(new View.OnClickListener() {
+            //מטרת הפעולה היא ליצור תגובה ולהוסיף אותה לפיירבייס
             @Override
             public void onClick(View view) {
 
@@ -56,6 +60,7 @@ public class reviewsActivity extends AppCompatActivity {
     }
 
     private void displayListView(String mailOf) {
+        // מטרת הפעולה היא להשיג את כל התגובות שנכתבו על המשתמש ולהציג אותן
         fb.collection("comments").whereEqualTo("otherUserName",mailOf).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -66,8 +71,6 @@ public class reviewsActivity extends AppCompatActivity {
                     comments com = d.toObject(comments.class);
                     commentsArr.add(com);
                 }
-
-
                 if(commentsArr.size()>0) {
 
                     String[] strings = new String[commentsArr.size()];

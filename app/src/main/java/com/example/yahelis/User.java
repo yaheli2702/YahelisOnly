@@ -1,6 +1,7 @@
 package com.example.yahelis;
 
 public class User {
+    //מטרת המחלקה לייצג משתמש.
 
     public String username;
     public String email;

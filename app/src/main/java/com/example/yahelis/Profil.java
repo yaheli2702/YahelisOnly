@@ -51,6 +51,8 @@ import java.util.UUID;
  * create an instance of this fragment.
  */
 public class Profil extends Fragment {
+    //מטרת המחלקה היא להציג את מסך הפרופיל.
+    // במחלקה זו אפשר לערוך את פרטי המשתמש (שם, מידע, גיל ותמונות).
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,7 +85,7 @@ public class Profil extends Fragment {
     private int whichPicture = 0;
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
             uri -> {
-
+                //מטרת התכונה היא לצורך פתיחת התמונות בגלריה, בחירה והחזרה כקישור.
                 // just an example of extracting an image
                 // Handle the returned Uri
                 try {
@@ -108,6 +110,7 @@ public class Profil extends Fragment {
             });
 
     private void uploadImageToStroage(Bitmap bitmap) {
+        //מטרת הפעולה היא להעלות תמונה לסטורג' בפיירבייס.
         if(whichPicture==0)
             bitmap = ((BitmapDrawable)ivProfile.getDrawable()).getBitmap();
         else if (whichPicture==1)
@@ -170,6 +173,7 @@ public class Profil extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static Profil newInstance(String param1, String param2) {
+        //מטרת הפעולה היא ליצור את הפרגמנט עם הפרמטרים המתאימים.
         Profil fragment = new Profil();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -180,6 +184,7 @@ public class Profil extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא ליצור את הפרגמנט עם הפרמטרים המתאימים.
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -190,7 +195,7 @@ public class Profil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //מטרת הפעולה היא ליצור את הדרך תצוגה של הפרגמנט.
         view= inflater.inflate(R.layout.fragment_profil, container, false);
         // Inflate the layout for this fragment
         return view;
@@ -200,6 +205,7 @@ public class Profil extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את כל הרכיבים ולזמן את נתוני המשתמש מהפיירבייס.
         super.onViewCreated(view, savedInstanceState);
         Button signOutButton = view.findViewById(R.id.bsignout);
         signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +235,7 @@ public class Profil extends Fragment {
     }
 
     private void getUserDetails() {
-
+        //מטרת הפעולה היא לקבל את פרטי המשתמש מהפיירסטור ולעדכן את כל התכונות בהתאם.
         FirebaseFirestore fb=FirebaseFirestore.getInstance();
         fb.collection("Users")
                 .whereEqualTo("email", mAuth.getCurrentUser().getEmail())
@@ -286,6 +292,7 @@ public class Profil extends Fragment {
     }
 
     public void setTrue(){
+        //מטרת הפעולה לאפשר עריכה של כל השדות הרלוונטים.
         etNameOfMyProfile.setFocusableInTouchMode(true);
         etNameOfMyProfile.setFocusable(true);
         etNameOfMyProfile.setClickable(true);
@@ -301,6 +308,7 @@ public class Profil extends Fragment {
         tvSave.setVisibility(View.VISIBLE);
     }
     public void setFalse(){
+        //מטרת הפעולה למנוע עריכה של כל השדות הרלוונטים.
         etNameOfMyProfile.setFocusable(false);
         etNameOfMyProfile.setClickable(false);
         etNameOfMyProfile.setCursorVisible(false);
@@ -314,6 +322,7 @@ public class Profil extends Fragment {
 
 
     public void editUserDetails(View view) {
+        //מטרת המפעולה היא לערוך את פרטי המשתמש ותמונות המשתמש כשהוא לוחץ על כתפור עריכה.
         if(isSame){
             setTrue();
             ivProfile.setEnabled(true);
@@ -374,7 +383,7 @@ public class Profil extends Fragment {
     }
 
     private void saveUsertoFB() {
-
+        //מטרת הפעולה לשמור את פרטי המשתמש המעודכנים לפיירבייס.
         // document ref
         // user details -> read from edit text
         // update firebase
@@ -389,6 +398,7 @@ public class Profil extends Fragment {
     }
 
     public void signOut() {
+        //מטרת הפעולה היא לאפשר התנתקות
         mAuth.signOut();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);

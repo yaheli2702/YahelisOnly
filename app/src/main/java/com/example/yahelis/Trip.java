@@ -3,7 +3,7 @@ package com.example.yahelis;
 import java.util.ArrayList;
 
 public class Trip {
-
+    //מטרת המחלקה לייצג את טיול.
 
     private String ownerName;
     private String ownerEmail;

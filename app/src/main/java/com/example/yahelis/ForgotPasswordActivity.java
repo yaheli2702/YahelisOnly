@@ -17,8 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-
-    //Declaration
+    // מטרת המחלקה היא לייצג את המצב שבו מישהו שוכח סיסמא ולאפשר לו לאפס אותה באמצעות כתובת מייל
     Button btnReset;
     EditText edtEmail;
     ProgressBar progressBar;
@@ -27,6 +26,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את הכל
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
@@ -39,6 +39,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //מטרת הפעולה היא לזמן את כפתור אחזור סיסמא.
+                // אם אין מייל אי אפשר ואם יש מזמנים את הפעולה המתאימה.
                 strEmail = edtEmail.getText().toString().trim();
                 if (!TextUtils.isEmpty(strEmail)) {
                     ResetPassword();
@@ -47,13 +49,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
     private void ResetPassword() {
+        //מטרת הפעולה היא לאפס את הסיסמא
+        //היא שולחת מייל איפוס סיסמא ומשנה אותה
         progressBar.setVisibility(View.VISIBLE);
         btnReset.setVisibility(View.INVISIBLE);
 

@@ -19,22 +19,25 @@ import java.util.Locale;
 import java.util.concurrent.BlockingDeque;
 
 public class FirebaseHelper {
-
+//מטרת המחלקה היא לעזור באינטראקציה עם פיירסטור בפיירבייס, בשביל לקבל נתונים בנוגע לטיולים.
 
 
     private IFirebaseResult fbResult;
 
     public FirebaseHelper(IFirebaseResult result)
     {
+        //מטרת הפעולה היא לאתחל את המחלקה ולהגדיר משתנה שיקבל את התוצאה של הנתונים.
         this.fbResult = result;
     }
 
     public interface IFirebaseResult
     {
+        //ממשק שמגדיר פעולה לקבל את הנתונים מהפיירבייס.
         void getData(ArrayList<Trip> arr);
     }
 
     public void getDataFromFirebase() {
+        //מטרת הפעולה לאחזר נתונים מהפיירסטור בפיירבייס.
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
 
         fb.collection("Trips").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -58,7 +61,7 @@ public class FirebaseHelper {
     }
 
     public static boolean isDateInPast(String dateString) {
-
+        //מטרת הפעולה לבדוק אם התאריך הנתון נמצא בעבר.
         String startDateString = dateString.split("–")[0].trim()+", "+dateString.split(",")[1].trim();
         Log.d("DATE CHECK ", "isDateInPast: "+startDateString);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH);

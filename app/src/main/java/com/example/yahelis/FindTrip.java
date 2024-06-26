@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult{
-
+//מטרת המחלקה היא לאפשר למשתמש לחפש טיול לפי מסננים.
     String[] darga = {"בחר.י", "קל", "בינוני", "קשה" };
     String[] area = { "בחר.י","צפון", "מרכז", "דרום", "ירושלים" };
     private static final String ARG_PARAM1 = "param1";
@@ -54,6 +54,7 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
     }
 
     public static FindTrip newInstance(String param1, String param2) {
+        //מטרת הפעולה היא ליצור את הפרגמנט עם הפרמטרים המתאימים.
         FindTrip fragment = new FindTrip();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -68,6 +69,7 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא ליצור את הפרגמנט עם הפרמטרים המתאימים.
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -78,19 +80,15 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //מטרת הפעולה היא ליצור את הויו של הפרגמנט.
         view = inflater.inflate(R.layout.fragment_find_trip, container, false);
-
-
-
         // Inflate the layout for this fragment
         return  view;  }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+        //מטרת הפעולה היא לאתחל את כל הרכיבים ולזמן את נתוני הטיול מהפיירבייס.
       //  getDataFromFirebase();
         FirebaseHelper fbHelper = new FirebaseHelper(this);
         fbHelper.getDataFromFirebase();
@@ -136,6 +134,7 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
         });
     }
     public void search() {
+        //מטרת הפעולה היא לבצע סינון של הטיולים לפי מה שהמשתמש בחר ולעדכן את הריסייקל ויו בהתאם.
         ArrayList<Trip> filter = new ArrayList<>();
         for (int i=0;i<tripsArr.size();i++)
         {
@@ -167,6 +166,7 @@ public class FindTrip extends Fragment implements FirebaseHelper.IFirebaseResult
 
     @Override
     public void getData(ArrayList<Trip> arr) {
+        //מטרת הפעולה היא לעדכן את מערך הטיולים בהתאם.
         tripsArr = arr;
     }
 }

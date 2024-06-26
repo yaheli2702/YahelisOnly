@@ -1,6 +1,7 @@
 package com.example.yahelis;
 
 public class comments {
+    // מטרת המחלקה לייצג רכיב תגובה.
     private String OtherUserName;// מי שכותבים עליו, מייל
     private String ThisUserName;// אני כותבת
     private String Comment;

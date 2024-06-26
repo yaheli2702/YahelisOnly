@@ -25,6 +25,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
+    //מטרת המחלקה היא לבנות ולהציג את הפרגמנט שמאפשר למשתמשים לראות את כל הטיולים שקיימים (ולא עבר זמנם). ממנה ניתן לגשת למסך אחר שמפרט על כל טיול וטיול.
+    // היא משתמשת בריסייקל ויו ולוקחת נתונים מהפיירבייס כדי להציג את הטיולים בצורה הנכונה.
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +53,7 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
      */
     // TODO: Rename and change types and number of parameters
     public static Home newInstance(String param1, String param2) {
+        //מטרת הפעולה היא ליצור את הפרגמנט עם הנתונים המתאימים.
         Home fragment = new Home();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -61,30 +64,27 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //מטרת הפעולה היא לאתחל את הפרגמנט.
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//
-//        for (int i=0; i<25;i++){
-//            trips.add(new Trip("information","קל","27,2,2025","photo"+i,54,87, "trip number"+i+"","place","צפון",10,"fkfkfkkfkfkf"));
-//        }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //מטרת הפעולה היא ליצור את התצוגה של הפרגמנט.
         // Inflate the layout for this fragment
         fragView = inflater.inflate(R.layout.fragment_home, container, false);
-
         return fragView;
     }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //מטרת הפעולה להגדיר את הריסייקל ויו עם הפרגמנט.
         super.onViewCreated(view, savedInstanceState);
         // ONLY HERE THE FRAGMENT IS ALREADY CREATED!
         setupRecyclerView();
@@ -93,7 +93,7 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
 
     private void setupRecyclerView() {
-
+        //מטרת הפעולה היא להכין את הריסייקל ויו .
         FirebaseHelper fbHelper = new FirebaseHelper(this);
         fbHelper.getDataFromFirebase();
     }
@@ -101,17 +101,19 @@ public class Home extends Fragment implements FirebaseHelper.IFirebaseResult{
 
     @Override
     public void onStart() {
+        //מטרת הפעולה היא להתחיל את הפרגמנט
         super.onStart();
     }
 
     @Override
     public  void onStop() {
+        //מטרת הפעולה היא לעצור את הפרגמנט
         super.onStop();
     }
 
     @Override
     public void getData(ArrayList<Trip> arr) {
-
+        //מטרת הפעולה היא לאתחל את הריסייקל ויו בהתאם לנתונים שהתקבלו מהפיירבייס.
         // set the recycler view display
 
         RecyclerView recyclerView = fragView.findViewById(R.id.recyclerView);

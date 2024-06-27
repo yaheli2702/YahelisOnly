@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         EditText etPassword=findViewById(R.id.password);
         String mail=etMail.getText().toString();
         String password=etPassword.getText().toString();
+        if(password.length()<6)
+        {
+            Toast.makeText(MainActivity.this,"please make sure your password is at least 6 chars",Toast.LENGTH_LONG).show();
+            return;
+        }
         if(mail.equals("")||password.equals(""))
             Toast.makeText(MainActivity.this,"please make sure you fill all the fields",Toast.LENGTH_LONG).show();
         else
